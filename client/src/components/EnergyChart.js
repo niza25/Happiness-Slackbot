@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import '../App.css'
 
 export default class EnergyChart extends Component {
@@ -8,32 +8,35 @@ export default class EnergyChart extends Component {
     render() {
         const data = [
             {
-                name: 'Monday', energy: 4000, happiness: 2400, engagement: 2400,
+                name: 'Monday', energy: 4, happiness: 4, engagement: 4.5,
             },
             {
-                name: 'Tuesday', energy: 3000, happiness: 1398, engagement: 2210,
+                name: 'Tuesday', energy: 4.4, happiness: 4.3, engagement: 3.5,
             },
             {
-                name: 'Wednesday', energy: 2000, happiness: 9800, engagement: 2290,
+                name: 'Wednesday', energy: 4.6, happiness: 4.2, engagement: 4.5,
             },
             {
-                name: 'Thursday', energy: 2780, happiness: 3908, engagement: 2000,
+                name: 'Thursday', energy: 4.5, happiness: 5, engagement: 4.2,
             },
             {
-                name: 'Friday', energy: 1890, happiness: 4800, engagement: 2181,
+                name: 'Friday', energy: 4.4, happiness: 4.5, engagement: 4.3,
             },
         ];
+
+        const range= [1,2,3,4,5]
 
         return (
             <div className='chartDisplay red'>
                 <BarChart
-                    width={900}
-                    height={500}
+                    width={1000}
+                    height={700}
                     data={data}
-                    margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                    margin={{top: 120, right: 30, left: 30, bottom: 100}}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis />
+                    <YAxis type="number"
+                    domain={[1,2,3,4,5]}/>
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="energy" fill="yellow" />
@@ -41,7 +44,7 @@ export default class EnergyChart extends Component {
                     <Bar dataKey="engagement" fill="red" />
                 </BarChart>
             </div>
-        );
+        )
     }
 
 }
