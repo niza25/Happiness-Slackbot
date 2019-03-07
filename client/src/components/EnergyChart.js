@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import '../App.css'
 
 export default class EnergyChart extends Component {
@@ -7,30 +7,42 @@ export default class EnergyChart extends Component {
 
     render() {
         const data = [
-            { name: 'Week 1', range: 5, pv: 1, amt: 2400 },
-            { name: 'Week 2', range: 4, pv: 2, amt: 500 },
-            { name: 'Week 3', range: 3, pv: 3, amt: 3000 },
-            { name: 'Week 4', range: 4, pv: 4, amt: 5600 },
-            { name: 'Week 5', range: 5, pv: 7800, amt: 400 },
-            { name: 'Week 6', range: 4, pv: 9000, amt: 500 },
-            { name: 'Week 7', range: 4, pv: 9000, amt: 500 },
-            { name: 'Week 8', range: 5, pv: 9000, amt: 500 },
-            { name: 'Week 9', range: 4, pv: 9000, amt: 500 },
-            { name: 'Week 10', range: 5, pv: 9000, amt: 500 },
+            {
+                name: 'Monday', energy: 4, happiness: 4, engagement: 4.5,
+            },
+            {
+                name: 'Tuesday', energy: 4.4, happiness: 4.3, engagement: 3.5,
+            },
+            {
+                name: 'Wednesday', energy: 4.6, happiness: 4.2, engagement: 4.5,
+            },
+            {
+                name: 'Thursday', energy: 4.5, happiness: 5, engagement: 4.2,
+            },
+            {
+                name: 'Friday', energy: 4.4, happiness: 4.5, engagement: 4.3,
+            },
         ];
 
         return (
             <div className='chartDisplay red'>
-                <h3>Energy</h3>
-                <LineChart width={1000} height={400} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-                    <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                <BarChart
+                    width={1000}
+                    height={700}
+                    data={data}
+                    margin={{top: 120, right: 30, left: 30, bottom: 100}}>
+                    <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis dataKey='range'/>
+                    <YAxis type="number"
+                    domain={[1,2,3,4,5]}/>
                     <Tooltip />
-                </LineChart>
+                    <Legend />
+                    <Bar dataKey="energy" fill='#ffff00' />
+                    <Bar dataKey="happiness" fill="green" />
+                    <Bar dataKey="engagement" fill="red" />
+                </BarChart>
             </div>
-        );
+        )
     }
 
 }

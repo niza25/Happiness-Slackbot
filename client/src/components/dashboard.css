@@ -1,11 +1,8 @@
 .main{
+  width: 100vw;
+  height: 100vh; 
   margin-top: 5vh;
   margin-bottom: 5vh;
   border-radius: 20px;
   background-color: white;
-}
-
-.chartsContainer{
-  display: flex;
-  flex-direction: column;
 }
