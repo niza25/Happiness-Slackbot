@@ -107,7 +107,7 @@ if (!process.env.clientId || !process.env.clientSecret) {
     "http://" +
     (process.env.PROJECT_DOMAIN
       ? process.env.PROJECT_DOMAIN + ".glitch.me/"
-      : "localhost:" + process.env.PORT || 3000);
+      : "localhost:" + process.env.PORT_BOT || 3000);
   console.log(
     "WARNING: This application is not fully configured to work with Slack. Please see instructions at " +
       where_its_at
