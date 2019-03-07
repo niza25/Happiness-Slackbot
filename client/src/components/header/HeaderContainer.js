@@ -16,7 +16,7 @@ class HeaderContainer extends React.Component {
       <Container className='headerContainer'>
         <div>
           <h1>The Student's Happiness Project</h1>
-          <h2>Slackbot Dashboard</h2>
+          <h2>Slackbot Survey Dashboard</h2>
         </div>
         <div>
           <h4>General mood:</h4>

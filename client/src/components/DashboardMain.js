@@ -20,7 +20,7 @@ class DashboardMain extends Component {
                 <Container className='chartsContainer'>
                     <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Change class
+                            Choose class
                             </Dropdown.Toggle>
 
                         <Dropdown.Menu>
