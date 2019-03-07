@@ -17,11 +17,14 @@ class HeaderContainer extends React.Component {
         <div>
           <h1>The Student's Happiness Project</h1>
           <h2>Slackbot Dashboard</h2>
-          </div>
+        </div>
+        <div>
+          <h4>Current mood:</h4>
         <div className='headerStatsContainer'>
           <HeaderStatsContainer topic='Energy' />
           <HeaderStatsContainer topic='Engagement' />
           <HeaderStatsContainer topic='Happinness' />
+        </div>
         </div>
       </Container>
     )

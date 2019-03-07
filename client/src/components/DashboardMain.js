@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import './dashboard.css'
 import HeaderContainer from './header/HeaderContainer'
 import EnergyChart from './EnergyChart'
-import EngagementChart from './EnergyChart'
-import HappinnessChart from './EnergyChart'
+import EngagementChart from './EngagementChart'
+import HappinessChart from './HappinessChart'
 import Container from 'react-bootstrap/Container'
 
 class DashboardMain extends Component {
@@ -19,7 +19,7 @@ class DashboardMain extends Component {
                 <Container className='chartsContainer'>
                     <EnergyChart />
                     <EngagementChart />
-                    <HappinnessChart />
+                    <HappinessChart />
                 </Container>
             </Container>
         )
