@@ -1,0 +1,10 @@
+.main{
+  border: 2px solid red;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.chartsContainer{
+  display: flex;
+  flex-direction: column;
+}
