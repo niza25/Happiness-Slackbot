@@ -33,7 +33,7 @@ module.exports = function(controller) {
 
   var server = http.createServer(webserver);
 
-  const PORT = process.env.PORT || 4390;
+  const PORT = process.env.PORT_BOT || 4390;
 
   server.listen(PORT, null, function() {
     console.log(
