@@ -17,9 +17,9 @@ class HeaderStatsContainer extends React.Component {
   render() {
 
     return (
-          <div className='statsButtonContainer'>
-          <Button variant={this.state.variant}>4.5</Button>
-          <h5>{this.props.topic}</h5>
+          <div className='statsButtonContainer spaceAround'>
+          <Button variant={this.state.variant} className='moodButton'>4.5</Button>
+          <p>{this.props.topic}</p>
           </div>
     )
   }

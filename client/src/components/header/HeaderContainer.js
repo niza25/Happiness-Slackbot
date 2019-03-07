@@ -14,12 +14,12 @@ class HeaderContainer extends React.Component {
 
     return (
       <Container className='headerContainer'>
-        <div>
-          <h1>The Student's Happiness Project</h1>
-          <h2>Slackbot Survey Dashboard</h2>
+        <div className='titleContainer'>
+          <h2>The Student's Happiness Project</h2>
+          <h3>Slackbot Survey Dashboard</h3>
         </div>
         <div>
-          <h4>General mood:</h4>
+          <h5 style={{textAlign: 'center'}}>General mood:</h5>
         <div className='headerStatsContainer'>
           <HeaderStatsContainer topic='Energy' />
           <HeaderStatsContainer topic='Engagement' />

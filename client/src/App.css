@@ -29,21 +29,25 @@
   background-color: #f2f2f2;
   }
 
-  .loginForm{
-    margin: 15vh auto;
-    max-width: 50%;
-    text-align: left;
-    color: red;
-    font-size: 1.2em;
-    font-weight: bold;
-  }
+.loginForm{
+  margin: 15vh auto;
+  max-width: 50%;
+  text-align: left;
+  color: red;
+  font-size: 1.2em;
+  font-weight: bold;
+}
 
-  .fullPage{
-    width: 100vw;
-    height: 100vh; 
-  }
+.fullPage{
+  width: 100vw;
+  height: 100vh; 
+}
 
-  .spaceAround{
-    margin: 1em 1em;
-  }
+.chartDisplay{
+  margin: 0 auto 2em;
+}
+
+.red{
+  color: red;
+}
 

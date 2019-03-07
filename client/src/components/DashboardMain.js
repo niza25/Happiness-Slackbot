@@ -17,8 +17,10 @@ class DashboardMain extends Component {
         return (
             <Container className='main'>
                 <HeaderContainer />
+                
                 <Container className='chartsContainer'>
-                    <Dropdown>
+                    
+                    <Dropdown style={{marginBottom: '1.8em'}}>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                             Choose class
                             </Dropdown.Toggle>
@@ -29,6 +31,11 @@ class DashboardMain extends Component {
                             <Dropdown.Item href="#/action-3">#class25</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
+
+                    <h4 style={{marginBottom: '1.8em'}}>
+                    The result for: 
+                    <span className='red'>all</span>
+                    </h4>
                     
                     <EnergyChart />
                     <EngagementChart />

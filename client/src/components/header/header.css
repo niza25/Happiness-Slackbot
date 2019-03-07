@@ -1,10 +1,15 @@
 .headerContainer{
-  width: 90%;
-  height: 30vh;
+  margin: 0 auto;
+  padding-top: 1.2em;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
+}
+
+.titleContainer{
+  text-align: left;
+  margin-right: 1em;
 }
 
 .headerStatsContainer{
@@ -17,4 +22,15 @@
   display: flex;
   flex-flow: column wrap;
   align-content: space-between;
+  text-align: center;
+}
+
+.moodButton{
+  height: 80px;
+  width: 80px;
+  font-size: 1.8em;
+}
+
+.spaceAround{
+  margin: 1em 1em;
 }
