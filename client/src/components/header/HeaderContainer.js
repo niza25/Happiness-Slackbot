@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import './header.css'
 import Container from 'react-bootstrap/Container'
 import HeaderStatsContainer from './HeaderStatsContainer'
 
@@ -18,9 +19,9 @@ class HeaderContainer extends React.Component {
           <h2>Slackbot Dashboard</h2>
         </div>
         <div className='headerStatsContainer'>
-          <HeaderStatsContainer topic='energy' />
-          <HeaderStatsContainer topic='engagement' />
-          <HeaderStatsContainer topic='happinness' />
+          <HeaderStatsContainer topic='Energy' />
+          <HeaderStatsContainer topic='Engagement' />
+          <HeaderStatsContainer topic='Happinness' />
         </div>
       </Container>
     )

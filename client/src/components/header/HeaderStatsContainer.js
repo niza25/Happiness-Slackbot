@@ -1,24 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import './header.css'
 import Button from 'react-bootstrap/Button'
 
 class HeaderStatsContainer extends React.Component {
 
   componentDidMount() {
-// fethc data to display in button
+// fetch data to display in button
 // if reusult low - setState(variant-warning), or danger
   }
 
   state={
-    variant:'outline-success'
+    variant:"outline-success"
   }
 
   render() {
 
     return (
           <div className='statsButtonContainer'>
-          <Button variant={this.state.variant}>4.5</Button>
-          <h3>{this.props.topic}</h3>
+          <Button variant="outline-success">4.5</Button>
+          <h5>{this.props.topic}</h5>
           </div>
     )
   }
