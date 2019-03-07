@@ -6,8 +6,3 @@
   border-radius: 20px;
   background-color: white;
 }
-
-.chartsContainer{
-  display: flex;
-  flex-direction: column;
-}

@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import './dashboard.css'
 import HeaderContainer from './header/HeaderContainer'
 import EnergyChart from './EnergyChart'
-import EngagementChart from './EngagementChart'
-import HappinessChart from './HappinessChart'
+//import EngagementChart from './EngagementChart'
+//import HappinessChart from './HappinessChart'
 import Container from 'react-bootstrap/Container'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
@@ -17,18 +17,18 @@ class DashboardMain extends Component {
 
         return (
             <Container className='main'>
-                
+
                 <HeaderContainer />
-                
-                <Tabs defaultActiveKey="class23" id="uncontrolled-tab-example">
+
+                <Tabs defaultActiveKey="class23">
                     <Tab eventKey="class23" title="#class23">
                         <EnergyChart />
                     </Tab>
                     <Tab eventKey="class24" title="#class24">
-                        <EngagementChart />
+                        <EnergyChart />
                     </Tab>
                     <Tab eventKey="class25" title="#class25">
-                        <HappinessChart />
+                        <EnergyChart />
                     </Tab>
                 </Tabs>
 

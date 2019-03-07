@@ -24,8 +24,6 @@ export default class EnergyChart extends Component {
             },
         ];
 
-        const range= [1,2,3,4,5]
-
         return (
             <div className='chartDisplay red'>
                 <BarChart
@@ -39,7 +37,7 @@ export default class EnergyChart extends Component {
                     domain={[1,2,3,4,5]}/>
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="energy" fill="yellow" />
+                    <Bar dataKey="energy" fill='#ffff00' />
                     <Bar dataKey="happiness" fill="green" />
                     <Bar dataKey="engagement" fill="red" />
                 </BarChart>
