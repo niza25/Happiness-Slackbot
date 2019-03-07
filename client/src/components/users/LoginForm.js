@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
+import '../../App.css'
 
 
 export default class LoginForm extends PureComponent {
@@ -21,7 +22,7 @@ export default class LoginForm extends PureComponent {
   }
 
   render() {
-    return (<Container>
+    return (<Container className='loginForm fullPage'>
       <h1>Login</h1>
       <Form onSubmit={this.handleSubmit}>
         <Form.Group controlId="formBasicEmail" >

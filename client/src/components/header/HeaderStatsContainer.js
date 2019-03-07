@@ -1,32 +1,33 @@
 import React from 'react'
 import { connect } from 'react-redux'
+//import {getAverage} from '../../actions/data'
 import './header.css'
 import Button from 'react-bootstrap/Button'
 
 class HeaderStatsContainer extends React.Component {
 
   componentDidMount() {
-// fetch data to display in button
-// if reusult low - setState(variant-warning), or danger
+    // this.props.getAverageAll()
+    // if reusult low - setState(variant-warning), or danger
   }
 
-  state={
-    variant:"success"
+  state = {
+    variant: "success"
   }
 
   render() {
 
     return (
-          <div className='statsButtonContainer'>
-          <Button variant={this.state.variant}>4.5</Button>
-          <h5>{this.props.topic}</h5>
-          </div>
+      <div className='statsButtonContainer spaceAround'>
+        <Button variant={this.state.variant} className='moodButton'>4.5</Button>
+        <p>{this.props.topic}</p>
+      </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-
+  averageAll: state.averageAll
 })
 
 export default connect(mapStateToProps)(HeaderStatsContainer)

@@ -1,5 +1,6 @@
 .main{
-  border: 2px solid red;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
   border-radius: 20px;
   background-color: white;
 }

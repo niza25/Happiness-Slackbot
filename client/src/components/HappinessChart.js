@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import '../App.css'
 
 export default class HappinnessChart extends Component {
 
@@ -14,8 +15,8 @@ export default class HappinnessChart extends Component {
             {name: 'Page F', uv: 590, pv: 9000, amt: 500},
             ];
         return (
-            <div>
-                <h2>Happinness</h2>
+            <div className='chartDisplay red'>
+                <h3>Happinness</h3>
                 <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                     <Line type="monotone" dataKey="uv" stroke="#8884d8" />
                     <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />

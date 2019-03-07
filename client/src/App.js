@@ -15,13 +15,13 @@ class App extends Component {
       <BrowserRouter>
         <div className='app'>
           <Navbar bg="light" variant='light' expand="lg" className='mainNavbar' /* fixed="top" */ >
-            <Navbar.Brand href="/events">Slackbot Happiness Dashboard</Navbar.Brand>
+            <Navbar.Brand href="/dashboard">Slackbot Happiness Dashboard</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
 
               {this.props.currentUser === null &&
                 <Nav className="mr-auto">
-                  <Nav.Link href="/login">Log In</Nav.Link>
+                  <Nav.Link href="/login">Login</Nav.Link>
                   <Nav.Link href="/signup">Sign Up</Nav.Link>
                 </Nav>
               }
@@ -42,7 +42,9 @@ class App extends Component {
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/signup" component={Signup} />
         
-          <footer className="footer">Made with &#10084; by Emine, Denise, Izabela and Robert, 2019</footer>
+          <footer className="footer">
+          Made with &#10084; for Codaisseur by Emine, Denise, Izabela and Robert &copy; 2019
+          </footer>
         </div>
 
       </BrowserRouter>

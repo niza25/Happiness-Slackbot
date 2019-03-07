@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import '../../App.css'
 
 export default class SignupForm extends PureComponent {
   state = {}
@@ -21,7 +22,7 @@ export default class SignupForm extends PureComponent {
 
   render() {
     return (
-      <Container>
+      <Container className='loginForm fullPage'>
         <h1>Sign up</h1>
         <Form onSubmit={this.handleSubmit}>
         <Form.Group>
