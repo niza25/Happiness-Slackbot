@@ -11,14 +11,14 @@ class HeaderStatsContainer extends React.Component {
   }
 
   state={
-    variant:"outline-success"
+    variant:"success"
   }
 
   render() {
 
     return (
           <div className='statsButtonContainer'>
-          <Button variant="outline-success">4.5</Button>
+          <Button variant={this.state.variant}>4.5</Button>
           <h5>{this.props.topic}</h5>
           </div>
     )

@@ -19,7 +19,7 @@ class HeaderContainer extends React.Component {
           <h2>Slackbot Dashboard</h2>
         </div>
         <div>
-          <h4>Current mood:</h4>
+          <h4>General mood:</h4>
         <div className='headerStatsContainer'>
           <HeaderStatsContainer topic='Energy' />
           <HeaderStatsContainer topic='Engagement' />
