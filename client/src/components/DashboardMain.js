@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 //import PropTypes from 'prop-types';
+import './dashboard.css'
 import HeaderContainer from './header/HeaderContainer'
 import EnergyChart from './EnergyChart'
 import EngagementChart from './EnergyChart'
@@ -13,14 +14,14 @@ class DashboardMain extends Component {
     render() {
 
         return (
-            <div>
+            <Container className='main'>
                 <HeaderContainer />
-                <Container>
+                <Container className='chartsContainer'>
                     <EnergyChart />
                     <EngagementChart />
                     <HappinnessChart />
                 </Container>
-            </div>
+            </Container>
         )
     }
 }

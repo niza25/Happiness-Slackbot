@@ -1,0 +1,9 @@
+.main{
+  border: 2px solid red;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.chartsContainer{
+  margin: 0 auto;
+}

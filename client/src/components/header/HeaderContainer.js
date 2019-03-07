@@ -13,11 +13,11 @@ class HeaderContainer extends React.Component {
   render() {
 
     return (
-      <Container>
+      <Container className='headerContainer'>
         <div>
           <h1>The Student's Happiness Project</h1>
           <h2>Slackbot Dashboard</h2>
-        </div>
+          </div>
         <div className='headerStatsContainer'>
           <HeaderStatsContainer topic='Energy' />
           <HeaderStatsContainer topic='Engagement' />
