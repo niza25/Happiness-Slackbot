@@ -7,7 +7,8 @@ import EnergyChart from './EnergyChart'
 import EngagementChart from './EngagementChart'
 import HappinessChart from './HappinessChart'
 import Container from 'react-bootstrap/Container'
-import Dropdown from 'react-bootstrap/Dropdown'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
 
 class DashboardMain extends Component {
 
@@ -16,31 +17,21 @@ class DashboardMain extends Component {
 
         return (
             <Container className='main'>
+                
                 <HeaderContainer />
                 
-                <Container className='chartsContainer'>
-                    
-                    <Dropdown style={{marginBottom: '1.8em'}}>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Choose class
-                            </Dropdown.Toggle>
+                <Tabs defaultActiveKey="class23" id="uncontrolled-tab-example">
+                    <Tab eventKey="class23" title="#class23">
+                        <EnergyChart />
+                    </Tab>
+                    <Tab eventKey="class24" title="#class24">
+                        <EngagementChart />
+                    </Tab>
+                    <Tab eventKey="class25" title="#class25">
+                        <HappinessChart />
+                    </Tab>
+                </Tabs>
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">#class23</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">#class24</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">#class25</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-
-                    <h4 style={{marginBottom: '1.8em'}}>
-                    The result for: 
-                    <span className='red'>all</span>
-                    </h4>
-                    
-                    <EnergyChart />
-                    <EngagementChart />
-                    <HappinessChart />
-                </Container>
             </Container>
         )
     }
