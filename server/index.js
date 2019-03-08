@@ -2,6 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const authRouter = require("./src/auth/routes");
 const userRouter = require("./src/users/routes");
+const answerRouter = require("./src/answers/routes");
+const classRouter = require("./src/classes/routes");
+const questionRouter = require("./src/questions/routes");
+const responseRouter = require("./src/responses/routes");
+const studentRouter = require("./src/students/routes");
 
 const app = express();
 const port = process.env.PORT_DB || 4000;
