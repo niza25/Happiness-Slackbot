@@ -5,7 +5,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Login from './components/users/Login'
 import Logout from './components/users/Logaut'
 import Signup from './components/users/SignUp'
-import DashboardMain from './components/DashboardMain'
+import DashboardMain from './components/dashboard/DashboardMain'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
@@ -43,7 +43,7 @@ class App extends Component {
           <Route exact path="/signup" component={Signup} />
         
           <footer className="footer">
-          Made with &#10084; for Codaisseur by Emine, Denise, Izabela and Robert &copy; 2019
+          Made with &#10084; by Emine, Denise, Izabela and Robert for Codaisseur, 2019 &copy;
           </footer>
         </div>
 

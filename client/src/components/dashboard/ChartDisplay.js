@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import '../App.css'
+import './dashboard.css'
 
 const data = [
     {
@@ -43,7 +44,11 @@ class CustomizedAxisTick extends Component {
     }
 }
 
-export default class ChartDisplay extends Component {
+class ChartDisplay extends Component {
+
+      /*   componentDidMount() {
+  // fetch the data to display in the chart
+    } */
 
 
     render() {
@@ -70,3 +75,9 @@ export default class ChartDisplay extends Component {
     }
 
 }
+
+const mapStateToProps = state => ({
+    averageAll: state.averageAll
+  })
+  
+  export default connect(mapStateToProps)(ChartDisplay)

@@ -22,10 +22,6 @@
   background-attachment: fixed;
 }
 
-.mainNavbar{
-  color:#336600;
-}
-
 .footer{
   width: 100vw;
   height: 50px;
@@ -49,8 +45,5 @@
   height: 100vh; 
 }
 
-.chartDisplay{
-  margin: 2em auto;
-}
 
 

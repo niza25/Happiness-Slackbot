@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 //import PropTypes from 'prop-types';
 import './dashboard.css'
-import HeaderContainer from './header/HeaderContainer'
+import HeaderContainer from '../header/HeaderContainer'
+import ChartDisplayContainer from './ChartDisplayContainer'
 import ChartDisplay from './ChartDisplay'
 import Container from 'react-bootstrap/Container'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 
 class DashboardMain extends Component {
+
+      /*   componentDidMount() {
+  // fetch active clases data? to display on tabs
+    } */
 
 
     render() {
@@ -19,8 +24,9 @@ class DashboardMain extends Component {
                 <HeaderContainer />
 
                 <Tabs defaultActiveKey="class23">
+                {/* map over the fetched list of classes to display tabs */}
                     <Tab eventKey="class23" title="#class23">
-                        <ChartDisplay />
+                        <ChartDisplayContainer />
                     </Tab>
                     <Tab eventKey="class24" title="#class24">
                         <ChartDisplay />
