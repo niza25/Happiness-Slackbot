@@ -27,7 +27,8 @@ class CustomizedLabel extends Component {
     render() {
         const {x, y, stroke, value} = this.props;
 
-        return <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">{value}</text>;
+        return <text x={x} y={y} dy={-8} fill={stroke}
+        fontSize={10} textAnchor="middle">{value}</text>;
     }
 }
 
@@ -38,7 +39,8 @@ class CustomizedAxisTick extends Component {
 
         return (
             <g transform={`translate(${x},${y})`}>
-                <text x={0} y={0} dy={16} textAnchor="end" fill="#336600" transform="rotate(-35)">{payload.value}</text>
+                <text x={30} y={15} dy={16} textAnchor="end"
+                fill="#336600" transform="rotate(-25)">{payload.value}</text>
             </g>
         );
     }

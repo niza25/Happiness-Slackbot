@@ -19,7 +19,7 @@ class ChartDisplayContainer extends React.Component {
         <div className='aboveChart'>
         <Dropdown>
           <Dropdown.Toggle variant="light">
-            Change timeline
+            Current week
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
