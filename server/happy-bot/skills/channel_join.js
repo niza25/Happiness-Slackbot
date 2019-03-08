@@ -1,7 +1,14 @@
 var debug = require("debug")("botkit:channel_join");
+const CodClass = require("../../src/classes/model");
 
 module.exports = function(controller) {
   controller.on("bot_channel_join", function(bot, message) {
+    const codClass = {
+      name: "test"
+    };
+
+    CodClass.create(codClass);
+
     bot.reply(message, {
       text: "Wants to know how you are doing today",
       attachments: [
