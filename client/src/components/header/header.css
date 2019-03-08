@@ -1,5 +1,5 @@
 .headerContainer{
-  margin: 0 auto;
+  margin: 0 auto 2em;
   padding-top: 1.2em;
   display: flex;
   flex-flow: row wrap;
@@ -7,28 +7,30 @@
   align-items: center;
 }
 
-.titleContainer{
-  text-align: left;
-  margin-right: 1em;
-}
-
-.headerStatsContainer{
+.buttonsContainer{
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-.statsButtonContainer{
-  display: flex;
-  flex-flow: column wrap;
-  align-content: space-between;
+.buttonDisplayContainer{
+  width: 30%;
   text-align: center;
+  margin-top: 1em;
 }
 
 .moodButton{
-  height: 80px;
-  width: 80px;
+  height: 100px;
+  width: 100px;
   font-size: 1.8em;
+  background-image: linear-gradient(to left bottom, #ffccff, #fdd5fd, #fadefa, #f8e7f8, #f5f0f5);
+  border-radius: 30px;
+  margin: 0 auto;
+  margin-bottom: 0.7em;
+  padding-top: 20%;
+  -webkit-box-shadow: 10px 10px 17px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 17px -9px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 17px -9px rgba(0,0,0,0.75);
 }
 
 .spaceAround{

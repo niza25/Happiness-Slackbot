@@ -2,6 +2,7 @@
   display: block;
   position: relative;
   font-family: 'Roboto Mono', monospace;
+  color: #336600;
 }
 
 .app::after {
@@ -27,13 +28,14 @@
   padding-top: 10px;
   text-align: center;
   background-color: #f2f2f2;
+  color: black;
   }
 
 .loginForm{
   margin: 15vh auto;
   max-width: 50%;
   text-align: left;
-  color: red;
+  color:#336600 /* #ff33ff */;
   font-size: 1.2em;
   font-weight: bold;
 }
@@ -43,11 +45,5 @@
   height: 100vh; 
 }
 
-.chartDisplay{
-  margin: 0 auto 2em;
-}
 
-.red{
-  color: red;
-}
 
