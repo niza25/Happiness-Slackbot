@@ -4,19 +4,19 @@ import '../App.css'
 
 const data = [
     {
-        name: 'Monday', energy: 4, engagement: 4, happiness: 3.9,
+        name: 'Monday', Energy: 4, Engagement: 4, Happiness: 3.9,
     },
     {
-        name: 'Tuesday', energy: 4.5, engagement: 4.3, happiness: 4.5,
+        name: 'Tuesday', Energy: 4.5, Engagement: 4.3, Happiness: 4.5,
     },
     {
-        name: 'Wednesday', energy: 3.6, engagement: 4.2, happiness: 4.6,
+        name: 'Wednesday', Energy: 3.6, Engagement: 4.2, Happiness: 4.6,
     },
     {
-        name: 'Thursday', energy: 5, engagement: 3.8, happiness: 4.2,
+        name: 'Thursday', Energy: 5, Engagement: 3.8, Happiness: 4.2,
     },
     {
-        name: 'Friday', energy: 4.8, engagement: 4, happiness: 4.2,
+        name: 'Friday', Energy: 4.8, Engagement: 4, Happiness: 4.2,
     }
 ];
 
@@ -37,7 +37,7 @@ class CustomizedAxisTick extends Component {
 
         return (
             <g transform={`translate(${x},${y})`}>
-                <text x={0} y={0} dy={16} textAnchor="end" fill="black" transform="rotate(-35)">{payload.value}</text>
+                <text x={0} y={0} dy={16} textAnchor="end" fill="#336600" transform="rotate(-35)">{payload.value}</text>
             </g>
         );
     }
@@ -61,9 +61,9 @@ export default class ChartDisplay extends Component {
                         domain={[1, 2, 3, 4, 5]} />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="energy" stroke="#990000" label={<CustomizedLabel />} />
-                    <Line type="monotone" dataKey="engagement" stroke="#ff9900" label={<CustomizedLabel />} />
-                    <Line type="monotone" dataKey="happiness" stroke="#0033cc" label={<CustomizedLabel />} />
+                    <Line type="monotone" dataKey="Energy" stroke="#990000" label={<CustomizedLabel />} />
+                    <Line type="monotone" dataKey="Engagement" stroke="#ff9900" label={<CustomizedLabel />} />
+                    <Line type="monotone" dataKey="Happiness" stroke="#0033cc" label={<CustomizedLabel />} />
                 </LineChart>
             </div>
         )

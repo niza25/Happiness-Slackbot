@@ -1,30 +1,33 @@
 import React from 'react'
 import { connect } from 'react-redux'
+//import {getAverage} from '../../actions/data'
 import './header.css'
 import Container from 'react-bootstrap/Container'
-import HeaderStatsContainer from './HeaderStatsContainer'
+import ButtonDisplay from './ButtonDisplay'
 
 class HeaderContainer extends React.Component {
 
   /*   componentDidMount() {
-  
+  // this.props.getAverageAll()
     } */
 
   render() {
 
     return (
       <Container className='headerContainer'>
-        <div className='titleContainer'>
+        
+        <div>
           <h2>The Student's Happiness Project</h2>
           <h3>Slackbot Survey Dashboard</h3>
         </div>
-        <div>
-          <h5 style={{textAlign: 'center'}}>General mood:</h5>
-        <div className='headerStatsContainer'>
-          <HeaderStatsContainer topic='Energy' />
-          <HeaderStatsContainer topic='Engagement' />
-          <HeaderStatsContainer topic='Happinness' />
-        </div>
+        
+        <div className='spaceAround'>
+          <h5>Current mood of all active classes:</h5>
+          <div className='buttonsContainer'>
+            <ButtonDisplay topic='Energy' stats='4.5'/>
+            <ButtonDisplay topic='Engagement' stats='4.5'/>
+            <ButtonDisplay topic='Happinness' stats='4.5'/>
+          </div>
         </div>
       </Container>
     )
@@ -32,7 +35,7 @@ class HeaderContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-
+  averageAll: state.averageAll
 })
 
 export default connect(mapStateToProps)(HeaderContainer)

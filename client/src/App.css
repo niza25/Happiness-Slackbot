@@ -2,6 +2,7 @@
   display: block;
   position: relative;
   font-family: 'Roboto Mono', monospace;
+  color: #336600;
 }
 
 .app::after {
@@ -21,19 +22,24 @@
   background-attachment: fixed;
 }
 
+.mainNavbar{
+  color:#336600;
+}
+
 .footer{
   width: 100vw;
   height: 50px;
   padding-top: 10px;
   text-align: center;
   background-color: #f2f2f2;
+  color: black;
   }
 
 .loginForm{
   margin: 15vh auto;
   max-width: 50%;
   text-align: left;
-  color: red;
+  color:#336600 /* #ff33ff */;
   font-size: 1.2em;
   font-weight: bold;
 }
@@ -47,7 +53,4 @@
   margin: 2em auto;
 }
 
-.red{
-  color: red;
-}
 
