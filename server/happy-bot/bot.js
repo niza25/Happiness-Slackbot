@@ -1,28 +1,9 @@
-<<<<<<< HEAD
-const express = require('express');
-const bodyParser = require('body-parser');
-const authRouter = require('./src/auth/routes');
-const userRouter = require('./src/users/routes');
-const express = require("express");
-const bodyParser = require("body-parser");
-
-const app = express();
-const port = process.env.PORT_DB || 4000;
-
-app
-    .use(bodyParser.json())
-    .use(authRouter)
-    .use(userRouter)
-    .listen(port, () => console.log(`Listening on port ${port}`));
-  .use(bodyParser.json())
-  .listen(port, () => console.log(`Listening on port ${port}`));
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         ______     ______     ______   __  __     __     ______
-        /\  == \   /\  __ \   /\__  _\ /\ \/ /    /\ \   /\__  _\
-        \ \  __<   \ \ \/\ \  \/_/\ \/ \ \  _"-.  \ \ \  \/_/\ \/
-         \ \_____\  \ \_____\    \ \_\  \ \_\ \_\  \ \_\    \ \_\
-          \/_____/   \/_____/     \/_/   \/_/\/_/   \/_/     \/_/
+           ______     ______     ______   __  __     __     ______
+          /\  == \   /\  __ \   /\__  _\ /\ \/ /    /\ \   /\__  _\
+          \ \  __<   \ \ \/\ \  \/_/\ \/ \ \  _"-.  \ \ \  \/_/\ \/
+           \ \_____\  \ \_____\    \ \_\  \ \_\ \_\  \ \_\    \ \_\
+            \/_____/   \/_____/     \/_/   \/_/\/_/   \/_/     \/_/
 
 
 This is a sample Slack bot built with Botkit.
@@ -34,36 +15,36 @@ This bot demonstrates many of the core features of Botkit:
 * Reply to messages
 * Use the conversation system to ask questions
 * Use the built in storage system to store and retrieve information
-for a user.
+  for a user.
 
 # RUN THE BOT:
 
-Create a new app via the Slack Developer site:
+  Create a new app via the Slack Developer site:
 
-  -> http://api.slack.com
+    -> http://api.slack.com
 
-Run your bot from the command line:
+  Run your bot from the command line:
 
-  clientId=<MY SLACK TOKEN> clientSecret=<my client secret> PORT=<3000> node bot.js
+    clientId=<MY SLACK TOKEN> clientSecret=<my client secret> PORT=<3000> node bot.js
 
 # USE THE BOT:
 
-  Navigate to the built-in login page:
+    Navigate to the built-in login page:
 
-  https://<myhost.com>/login
+    https://<myhost.com>/login
 
-  This will authenticate you with Slack.
+    This will authenticate you with Slack.
 
-  If successful, your bot will come online and greet you.
+    If successful, your bot will come online and greet you.
 
 
 # EXTEND THE BOT:
 
-Botkit has many features for building cool and useful bots!
+  Botkit has many features for building cool and useful bots!
 
-Read all about it here:
+  Read all about it here:
 
-  -> http://howdy.ai/botkit
+    -> http://howdy.ai/botkit
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 var env = require("node-env-file");
@@ -96,7 +77,7 @@ if (process.env.MONGO_URI) {
   });
   bot_options.storage = mongoStorage;
 } else {
-  bot_options.json_file_store = __dirname + "/happy-bot/data/db/"; // store user data in a simple JSON format
+  bot_options.json_file_store = __dirname + "/.data/db/"; // store user data in a simple JSON format
 }
 
 // Create the Botkit controller, which controls all instances of the bot.
@@ -105,12 +86,13 @@ var controller = Botkit.slackbot(bot_options);
 controller.startTicking();
 
 // Set up an Express-powered webserver to expose oauth and webhook endpoints
-var webserver = require(__dirname +
-  "/happy-bot/components/express_webserver.js")(controller);
+var webserver = require(__dirname + "/components/express_webserver.js")(
+  controller
+);
 
 if (!process.env.clientId || !process.env.clientSecret) {
   // Load in some helpers that make running Botkit on Glitch.com better
-  require(__dirname + "/happy-bot/components/plugin_glitch.js")(controller);
+  require(__dirname + "/components/plugin_glitch.js")(controller);
 
   webserver.get("/", function(req, res) {
     res.render("installation", {
@@ -136,24 +118,24 @@ if (!process.env.clientId || !process.env.clientSecret) {
       domain: req.get("host"),
       protocol: req.protocol,
       glitch_domain: process.env.PROJECT_DOMAIN,
-      layout: "/happy-bot/layouts/default"
+      layout: "layouts/default"
     });
   });
   // Set up a simple storage backend for keeping a record of customers
   // who sign up for the app via the oauth
-  require(__dirname + "/happy-bot/components/user_registration.js")(controller);
+  require(__dirname + "/components/user_registration.js")(controller);
 
   // Send an onboarding message when a new team joins
-  require(__dirname + "/happy-bot/components/onboarding.js")(controller);
+  require(__dirname + "/components/onboarding.js")(controller);
 
   // Load in some helpers that make running Botkit on Glitch.com better
-  require(__dirname + "/happy-bot/components/plugin_glitch.js")(controller);
+  require(__dirname + "/components/plugin_glitch.js")(controller);
 
-  var normalizedPath = require("path").join(__dirname, "happy-bot/skills");
+  var normalizedPath = require("path").join(__dirname, "skills");
   require("fs")
     .readdirSync(normalizedPath)
     .forEach(function(file) {
-      require(__dirname + "/happy-bot/skills/" + file)(controller);
+      require("./skills/" + file)(controller);
     });
 
   // This captures and evaluates any message sent to the bot as a DM
