@@ -1,31 +1,56 @@
 var debug = require("debug")("botkit:channel_join");
 const CodClass = require("../../src/classes/model");
+const Question = require("../../src/questions/model");
+const Student = require("../../src/students/model");
+const Response = require("../../src/responses/model");
 
 module.exports = function(controller) {
   const answers = {};
 
   controller.on("bot_channel_join", function(bot, message) {
-    bot.api.channels.info({ channel: message.channel }, (err, res) => {
-      const codClass = {
-        name: res.channel.name
-      };
+    bot.api.channels.info({ channel: message.channel }, async (err, res) => {
+      let classId = 0;
 
-      CodClass.create(codClass);
+      const aClass = await CodClass.findOne({
+        where: { name: res.channel.name }
+      });
+
+      if (!aClass) {
+        const codClass = {
+          name: res.channel.name
+        };
+        classId = await CodClass.create(codClass).then(
+          res => res.dataValues.id
+        );
+      } else {
+        aClass.dataValues.id;
+      }
+
+      const questions = await Question.findAll().map(
+        question => question.dataValues.question
+      );
+
+      console.log(questions);
 
       res.channel.members.forEach(member => {
         let isBot = false;
 
         bot.api.users.info({ user: member }, (err, res) => {
-          console.log(member);
-
           isBot = res.user.is_bot;
 
           if (isBot) {
             return false;
           }
 
+          const student = {
+            slack: member,
+            classId
+          };
+
+          Student.create(student);
+
           answers[member] = { q1: [], q2: [], q3: [] };
-          bot.startPrivateConversation({ user: member }, function(err, convo) {
+          /* bot.startPrivateConversation({ user: member }, function(err, convo) {
             if (err) {
               console.log(err);
             } else {
@@ -33,7 +58,6 @@ module.exports = function(controller) {
               convo.addQuestion(
                 "How energised do you feel? Please pick a number from 1 to 5",
                 (res, convo) => {
-                  console.log(res.text);
                   answers[member].q1 = [...answers[member].q1, res.text];
                   convo.gotoThread("question2");
                 },
@@ -53,7 +77,6 @@ module.exports = function(controller) {
                 "Whatever the third question was? You should know the drill by now",
                 (res, convo) => {
                   answers[member].q3 = [...answers[member].q3, res.text];
-                  console.log(answers);
                   convo.gotoThread("stop");
                 },
                 {},
@@ -62,19 +85,20 @@ module.exports = function(controller) {
               convo.addQuestion(
                 "Thanks, you've been very helpful",
                 (res, convo) => {
-                  convo(stop);
+                  convo.stop();
                 },
                 {},
                 "stop"
               );
             }
-          });
+          }); */
         });
       });
     });
   });
+};
 
-  /* bot.reply(message, {
+/* bot.reply(message, {
       text: "Wants to know how you are doing today",
       attachments: [
         {
@@ -124,4 +148,3 @@ module.exports = function(controller) {
         }
       ]
     }); */
-};

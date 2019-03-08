@@ -7,7 +7,7 @@ const Response = require("../responses/model");
 
 const Student = sequelize.define(
   "students",
-  {},
+  { slack: { type: Sequelize.STRING, allowNull: false } },
   { tableName: "students", timestamps: false }
 );
 

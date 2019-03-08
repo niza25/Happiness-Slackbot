@@ -8,16 +8,16 @@ const Answer = require("../answers/model");
 const Question = sequelize.define(
   "questions",
   {
-    question: {
+    text: {
       type: Sequelize.STRING,
       allowNull: false,
-      field: "question"
+      field: "text"
     }
   },
   { tableName: "questions", timestamps: false }
 );
 
-Question.hasMany(Answer);
-Answer.belongsTo(Question);
+Question.hasMany(Answer, { foreignKey: "question_id" });
+Answer.belongsTo(Question, { foreignKey: "question_id" });
 
 module.exports = Question;

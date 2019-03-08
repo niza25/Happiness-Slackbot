@@ -12,6 +12,11 @@ const Answer = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false,
       field: "description"
+    },
+    number: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      field: "number"
     }
   },
   { tableName: "answers", timestamps: false }
