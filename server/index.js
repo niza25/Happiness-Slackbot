@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const authRouter = require("./src/auth/routes");
 const userRouter = require("./src/users/routes");
-const answerRouter = require("./src/answers/routes");
+
 const classRouter = require("./src/classes/routes");
 const questionRouter = require("./src/questions/routes");
 const responseRouter = require("./src/responses/routes");
@@ -15,7 +15,7 @@ app
   .use(bodyParser.json())
   .use(authRouter)
   .use(userRouter)
-  .use(bodyParser.json())
+  .use(bodyParser.json({ limit: "1mb", extended: true }))
   .listen(port, () => console.log(`Listening on port ${port}`));
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
