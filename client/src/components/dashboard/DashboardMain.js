@@ -13,6 +13,7 @@ class DashboardMain extends Component {
 
       /*   componentDidMount() {
   // fetch active clases data? to display on tabs
+  // fetch the data for default active class
     } */
 
 

@@ -7,7 +7,7 @@
 .app::after {
   content: "";
   background: url('https://images.pexels.com/photos/1068523/pexels-photo-1068523.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');
-  opacity: 0.7;
+  opacity: 0.6;
   top: 0;
   left: 0;
   bottom: 0;

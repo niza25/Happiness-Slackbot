@@ -17,6 +17,7 @@ class ChartDisplayContainer extends React.Component {
     return (
       <Container>
         <div className='aboveChart'>
+        
         <Dropdown>
           <Dropdown.Toggle variant="light">
             Current week
@@ -31,6 +32,7 @@ class ChartDisplayContainer extends React.Component {
 
         <ParticipationDisplay percentage='87' />
         </div>
+        
         <ChartDisplay />
 
       </Container>
