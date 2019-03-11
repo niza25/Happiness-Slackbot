@@ -2,13 +2,12 @@
   display: block;
   position: relative;
   font-family: 'Roboto Mono', monospace;
-  color: #336600;
 }
 
 .app::after {
   content: "";
-  background: url('https://images.pexels.com/photos/823694/pexels-photo-823694.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');
-  opacity: 0.7;
+  background: url('https://images.pexels.com/photos/1068523/pexels-photo-1068523.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');
+  opacity: 0.6;
   top: 0;
   left: 0;
   bottom: 0;
@@ -35,7 +34,7 @@
   margin: 15vh auto;
   max-width: 50%;
   text-align: left;
-  color:#336600 /* #ff33ff */;
+  color: #ff33ff;
   font-size: 1.2em;
   font-weight: bold;
 }
