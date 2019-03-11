@@ -9,17 +9,19 @@ const Response = sequelize.define(
   "responses",
   {
     response_time: {
-      type: Sequelize.STRING,
+      type: "TIMESTAMP",
       allowNull: false,
-      field: "response_time"
+      field: "response_time",
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
     }
   },
   {
     tableName: "responses",
-    timestamps: true
+    timestamps: false
   }
 );
 
 Response.belongsTo(Student, { foreignKey: "student_id" });
+Student.hasMany(Response, { foreignKey: "student_id" });
 
 module.exports = Response;

@@ -3,7 +3,6 @@ const CodClass = require("../../src/classes/model");
 const Question = require("../../src/questions/model");
 const Student = require("../../src/students/model");
 const Response = require("../../src/responses/model");
-const Answer = require("../../src/answers/model");
 
 module.exports = function(controller) {
   const answers = {};
@@ -17,15 +16,16 @@ module.exports = function(controller) {
         aClass = await CodClass.findOne({
           where: { name: res.channel.name }
         });
-        classId = aClass.dataValues.id;
 
         if (!aClass) {
           codClass = {
             name: res.channel.name
           };
-          classId = await CodClass.create(codClass).then(
-            res => res.dataValues.id
-          );
+          classId = await CodClass.create(codClass).then(res => {
+            return res.dataValues.id;
+          });
+        } else {
+          classId = aClass.dataValues.id;
         }
       } catch (err) {
         console.log(err);
@@ -35,35 +35,31 @@ module.exports = function(controller) {
         const questions = await Question.findAll().map(
           question => question.dataValues.text
         );
-        console.log("AWAIT", questions);
         res.channel.members.forEach(async member => {
           let isBot = false;
 
           bot.api.users.info({ user: member }, async (err, res) => {
             isBot = res.user.is_bot;
 
-            let studentId = 0;
-            let student = {};
-
             if (isBot) {
               return false;
             }
 
             try {
-              student = await Student.findOne({
-                where: { slack: member, classId }
+              const student = await Student.findOne({
+                where: { slack: member, class_id: classId }
               });
-              studentId = student.datavalues ? student.dataValues.id : 0;
-              console.log("MEMBER" + member);
 
               if (!student) {
-                student = {
+                newStudent = {
                   slack: member,
                   class_id: classId
                 };
-                studentId = await Student.create(student).then(
+                studentId = await Student.create(newStudent).then(
                   res => res.dataValues.id
                 );
+              } else {
+                studentId = student.datavalues ? student.dataValues.id : 0;
               }
               bot.startPrivateConversation({ user: member }, async function(
                 err,
@@ -72,10 +68,40 @@ module.exports = function(controller) {
                 if (err) {
                   console.log(err);
                 } else {
-                  // convo.addMessage("Just joined the channel! Let's be friends!");
-                  console.log("questions", questions);
                   convo.addQuestion(
                     questions[0],
+                    async (res, convo) => {
+                      console.log(res);
+                      let responseData = {};
+                      try {
+                        const answerId = await Answer.findOne({
+                          where: { number: res.text }
+                        })
+                          .then(answer => {
+                            console.log(answer);
+                            return answer.dataValues.id;
+                          })
+                          .catch(console.error);
+                        responseData = {
+                          response_time: new Date().toDateString(),
+                          student_id: studentId,
+                          answer_id: answerId
+                        };
+                      } catch (err) {
+                        console.log(err);
+                      }
+                      try {
+                        const response = await Response.create(responseData);
+                      } catch (err) {
+                        console.log(err);
+                      }
+                      convo.gotoThread("question2");
+                    },
+                    {},
+                    "default"
+                  );
+                  convo.addQuestion(
+                    questions[1],
                     async (res, convo) => {
                       let responseData = {};
                       try {
@@ -94,29 +120,39 @@ module.exports = function(controller) {
                       }
                       try {
                         const response = await Response.create(responseData);
-                        console.log("RESPONSE " + response);
                       } catch (err) {
                         console.log(err);
                       }
                       // answers[member].q1 = [...answers[member].q1, res.text];
-                      convo.gotoThread("question2");
-                    },
-                    {},
-                    "default"
-                  );
-                  convo.addQuestion(
-                    "How well do you understand the material? Please pick a number from 1 to 5",
-                    (res, convo) => {
-                      // answers[member].q2 = [...answers[member].q2, res.text];
                       convo.gotoThread("question3");
                     },
                     {},
                     "question2"
                   );
                   convo.addQuestion(
-                    "Whatever the third question was? You should know the drill by now",
-                    (res, convo) => {
-                      // answers[member].q3 = [...answers[member].q3, res.text];
+                    questions[2],
+                    async (res, convo) => {
+                      let responseData = {};
+                      try {
+                        const answerId = await Answer.findOne({
+                          where: { number: res.text }
+                        })
+                          .then(answer => answer.dataValues.id)
+                          .catch(console.error);
+                        responseData = {
+                          response_time: new Date().toDateString(),
+                          student_id: studentId,
+                          answer_id: answerId
+                        };
+                      } catch (err) {
+                        console.log(err);
+                      }
+                      try {
+                        const response = await Response.create(responseData);
+                      } catch (err) {
+                        console.log(err);
+                      }
+                      // answers[member].q1 = [...answers[member].q1, res.text];
                       convo.gotoThread("stop");
                     },
                     {},

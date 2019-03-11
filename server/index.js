@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const authRouter = require("./src/auth/routes");
 const userRouter = require("./src/users/routes");
-const answerRouter = require("./src/answers/routes");
+
 const classRouter = require("./src/classes/routes");
 const questionRouter = require("./src/questions/routes");
 const responseRouter = require("./src/responses/routes");
