@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const authRouter = require("./src/auth/routes");
 const userRouter = require("./src/users/routes");
+const cors = require("cors");
 
 const classRouter = require("./src/classes/routes");
 const questionRouter = require("./src/questions/routes");
@@ -12,6 +13,7 @@ const app = express();
 const port = process.env.PORT_DB || 4000;
 
 app
+  .use(cors())
   .use(bodyParser.json())
   .use(authRouter)
   .use(userRouter)
