@@ -1,20 +1,21 @@
 import request from 'superagent'
 
-export const AVERAGE_ALL_FETCHED = 'AVERAGE_FETCHED'
+export const ACTIVE_CLASSES_FETCHED = 'ACTIVE_CLASSES_FETCHED'
 
 const baseUrl = 'http://localhost:4000'
 
-// get the average to display in buttons
-const gotAverageAll = averageAll => ({
-  type: AVERAGE_ALL_FETCHED,
-  averageAll
+
+// fetch active classes
+const activeClassesfetched = activeClasses => ({
+  type: ACTIVE_CLASSES_FETCHED,
+  activeClasses
 })
-// get the average to display in buttons
-export const getAverageAll = () => (dispatch, getState) => {
-  if (getState().average.length) return
-  request(`${baseUrl}/data/`)
+
+export const fetchActiveClasses = () => (dispatch, getState) => {
+  
+  request(`${baseUrl}/classes`)
     .then(response => {
-      dispatch(gotAverageAll(response.body))
+      dispatch(activeClassesfetched(response.body))
     })
     .catch(console.error)
 }
