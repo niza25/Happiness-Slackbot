@@ -5,7 +5,7 @@ export const ACTIVE_CLASSES_FETCHED = 'ACTIVE_CLASSES_FETCHED'
 const baseUrl = 'http://localhost:4000'
 
 
-// fetch active classes
+// fetch active classes to display on tabs
 const activeClassesfetched = activeClasses => ({
   type: ACTIVE_CLASSES_FETCHED,
   activeClasses

@@ -24,7 +24,7 @@ class DashboardMain extends Component {
 
                 <Tabs defaultActiveKey="class23">
 
-                    {!this.props.activeClasses && 'Loading'}
+                    {!this.props.activeClasses && 'Almost there...'}
 
                     {this.props.activeClasses &&
                         this.props.activeClasses.map(activeClass => {
