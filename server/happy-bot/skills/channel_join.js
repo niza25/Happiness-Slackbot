@@ -41,57 +41,8 @@ module.exports = function(controller) {
                 if (err) {
                   console.log(error);
                 } else {
-                  convo.addQuestion(
-                    questions[0],
-                    async (res, convo) => {
-                      try {
-                        await Response.create({
-                          answer: res.event.text,
-                          student_id: studentId,
-                          question_id: 1
-                        });
-                        convo.gotoThread("q2");
-                      } catch (err) {
-                        console.log(err);
-                      }
-                    },
-                    {},
-                    "default"
-                  );
-                  convo.addQuestion(
-                    questions[1],
-                    async (res, convo) => {
-                      try {
-                        await Response.create({
-                          answer: res.event.text,
-                          student_id: studentId,
-                          question_id: 2
-                        });
-                        convo.gotoThread("q3");
-                      } catch (err) {
-                        console.log(err);
-                      }
-                    },
-                    {},
-                    "q2"
-                  );
-                  convo.addQuestion(
-                    questions[2],
-                    async (res, convo) => {
-                      try {
-                        await Response.create({
-                          answer: res.event.text,
-                          student_id: studentId,
-                          question_id: 3
-                        });
-                        convo.gotoThread("stop");
-                      } catch (err) {
-                        console.log(err);
-                      }
-                    },
-                    {},
-                    "q3"
-                  );
+                  [0, 1, 2].forEach(i => askQuestion(convo, questions, i));
+
                   convo.addQuestion(
                     "Thanks, you've been very helpful",
                     (res, convo) => {
@@ -112,4 +63,26 @@ module.exports = function(controller) {
       }
     });
   });
+};
+
+const askQuestion = (convo, questions, i) => {
+  const thread = !i ? `q${i + 1}` : "default";
+  return convo.addQuestion(
+    questions[i],
+    async (res, convo) => {
+      try {
+        await Response.create({
+          answer: res.event.text,
+          student_id: studentId,
+          question_id: i + 1
+        });
+        const nextThread = i !== 2 ? `q${i + 2}` : "stop";
+        convo.gotoThread("q2");
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    {},
+    thread
+  );
 };
