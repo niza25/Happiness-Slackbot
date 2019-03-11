@@ -19,6 +19,6 @@ const CodClass = sequelize.define(
   { tableName: "classes", timestamps: false }
 );
 
-Student.belongsTo(CodClass);
+Student.belongsTo(CodClass, { foreignKey: "student_id" });
 
 module.exports = CodClass;

@@ -22,7 +22,7 @@ const Answer = sequelize.define(
   { tableName: "answers", timestamps: false }
 );
 
-Answer.hasMany(Response);
-Response.belongsTo(Answer);
+Answer.hasMany(Response, { foreignKey: "answer_id" });
+Response.belongsTo(Answer, { foreignKey: "answer_id" });
 
 module.exports = Answer;
