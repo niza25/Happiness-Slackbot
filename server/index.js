@@ -15,7 +15,7 @@ app
   .use(bodyParser.json())
   .use(authRouter)
   .use(userRouter)
-  .use(bodyParser.json())
+  .use(bodyParser.json({ limit: "1mb", extended: true }))
   .listen(port, () => console.log(`Listening on port ${port}`));
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

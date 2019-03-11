@@ -13,6 +13,11 @@ const Response = sequelize.define(
       allowNull: false,
       field: "response_time",
       defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
+    },
+    answer: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      field: "answer"
     }
   },
   {
