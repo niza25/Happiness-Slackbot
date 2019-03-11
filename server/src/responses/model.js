@@ -20,6 +20,6 @@ const Response = sequelize.define(
   }
 );
 
-Response.belongsTo(Student);
+Response.belongsTo(Student, { foreignKey: "student_id" });
 
 module.exports = Response;

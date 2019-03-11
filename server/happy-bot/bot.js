@@ -59,11 +59,9 @@ var Botkit = require("botkit");
 var debug = require("debug")("botkit:main");
 
 var bot_options = {
-  clientId: process.env.clientId || "567388031410.571248244294",
-  clientSecret: process.env.clientSecret || "f005018731987440abd1624afc805160",
-  clientSigningSecret:
-    process.env.clientSigningSecret || "108366d10010fce38b30a143a44fd408",
-  // debug: true,
+  clientId: process.env.clientId,
+  clientSecret: process.env.clientSecret,
+  clientSigningSecret: process.env.clientSigningSecret, // debug: true,
   scopes: ["bot"],
   studio_token: process.env.studio_token,
   studio_command_uri: process.env.studio_command_uri
