@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-//import {getAverage} from '../../actions/data'
+import {getAverageAll} from '../../actions/data'
 import ButtonDisplay from './ButtonDisplay'
 import './header.css'
 
 class ButtonMoodContainer extends React.Component {
 
   componentDidMount() {
-    // this.props.getAverageAll()
+    this.props.getAverageAll()
   }
 
   render() {
@@ -29,4 +29,4 @@ const mapStateToProps = state => ({
   averageAll: state.averageAll
 })
 
-export default connect(mapStateToProps)(ButtonMoodContainer)
+export default connect(mapStateToProps, {getAverageAll})(ButtonMoodContainer)

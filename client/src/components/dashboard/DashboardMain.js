@@ -30,7 +30,7 @@ class DashboardMain extends Component {
                         this.props.activeClasses.map(activeClass => {
                             return (
                                 <Tab eventKey={activeClass.name} title={activeClass.name}>
-                                    <ChartDisplayContainer />
+                                    <ChartDisplayContainer classId={activeClass.id} />
                                 </Tab>
                             )
                         })
