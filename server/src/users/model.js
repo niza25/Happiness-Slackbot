@@ -15,10 +15,6 @@ const User = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false
     },
-    user_name: {
-      type: Sequelize.STRING,
-      allowNull: false
-    }
   },
   {
     timestamps: false,

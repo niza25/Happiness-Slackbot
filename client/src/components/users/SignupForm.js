@@ -25,14 +25,6 @@ export default class SignupForm extends PureComponent {
       <Container className='loginForm fullPage'>
         <h1>Sign up</h1>
         <Form onSubmit={this.handleSubmit}>
-        <Form.Group>
-          <Form.Label>
-            Name
-            <Form.Control type="name" name="name" value={
-              this.state.name || ''
-            } onChange={this.handleChange} required/>
-          </Form.Label>
-          </Form.Group>
 
           <Form.Group>
           <Form.Label>

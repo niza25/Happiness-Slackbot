@@ -8,12 +8,12 @@ import { Container } from 'react-bootstrap';
 
 class Signup extends PureComponent {
 	handleSubmit = (data) => {
-		this.props.postSignup(data.name, data.email, data.password)
+		this.props.postSignup(data.email, data.password)
 	}
 
 	render() {
 		if (this.props.signup.success) return (
-			<Redirect to="/events" />
+			<Redirect to="/login" />
 		)
 
 		return (
