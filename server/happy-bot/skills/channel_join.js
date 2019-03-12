@@ -47,7 +47,6 @@ const askQuestion = (convo, questions, i, studentId) => {
   convo.addQuestion(
     questions[i],
     async (res, convo) => {
-      console.log(i, thread);
       try {
         await Response.create({
           answer: res.event.text,
@@ -55,7 +54,6 @@ const askQuestion = (convo, questions, i, studentId) => {
           question_id: i + 1
         });
         const nextThread = i !== 2 ? `q${i + 2}` : "stop";
-        console.log(i, nextThread);
         convo.gotoThread(nextThread);
       } catch (err) {
         console.log(err);
@@ -67,9 +65,10 @@ const askQuestion = (convo, questions, i, studentId) => {
 };
 
 const sendSurvey = async (res, member, classId, bot) => {
-  if (res.user.is_bot) {
+  if (res.user.is_bot || res.user.is_admin || res.user.is_owner) {
     return false;
   }
+  console.log(res.user);
   try {
     const findStudent = await Student.findOne({
       where: { slack: member, class_id: classId }
@@ -78,7 +77,6 @@ const sendSurvey = async (res, member, classId, bot) => {
       ? findStudent
       : Student.create({ slack: member, class_id: classId }));
     const studentId = student.dataValues.id;
-    console.log(student.dataValues);
 
     const questions = await Question.findAll().map(
       question => question.dataValues.text
