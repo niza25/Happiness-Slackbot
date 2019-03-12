@@ -1,20 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {getDataForClass} from '../../actions/data'
+import { getDataForClass } from '../../actions/data'
 import './dashboard.css'
 import Container from 'react-bootstrap/Container'
 import ChartDisplay from './ChartDisplay'
 import ParticipationDisplay from './ParticipationDisplay'
 import Dropdown from 'react-bootstrap/Dropdown'
 
-class ChartDisplayContainer extends React.Component {
+class Tab extends React.Component {
 
   componentDidMount() {
-    this.props.getDataForClass(this.props.classId)
-    console.log(this.props.classId, 'classID, im fetching for this component')
+    //this.props.classId !== null && this.props.getDataForClass(this.props.classId)
   }
 
   render() {
+
 
     return (
       <Container>
@@ -33,7 +33,7 @@ class ChartDisplayContainer extends React.Component {
           <ParticipationDisplay percentage='87' />
         </div>
 
-        <ChartDisplay data={this.props.dataForClass} />
+        <ChartDisplay data={this.props.dataForClass[0]} />
 
       </Container>
     )
@@ -44,4 +44,4 @@ const mapStateToProps = state => ({
   dataForClass: state.dataForClass
 })
 
-export default connect(mapStateToProps, {getDataForClass})(ChartDisplayContainer)
+export default connect(mapStateToProps, { getDataForClass })(Tab)
