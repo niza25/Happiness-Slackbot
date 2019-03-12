@@ -80,6 +80,7 @@ if (!process.env.clientId || !process.env.clientSecret || !process.env.PORT) {
 var Botkit = require("botkit");
 var debug = require("debug")("botkit:main");
 
+// Displaying cliendId is okay, but do not display secrets and tokens.
 var bot_options = {
   clientId: process.env.clientId || "567388031410.571248244294",
   clientSecret: process.env.clientSecret || "f005018731987440abd1624afc805160",

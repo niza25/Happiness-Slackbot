@@ -55,7 +55,6 @@ const sendSurvey = async (res, member, classId, bot) => {
   if (res.user.is_bot || res.user.is_admin || res.user.is_owner) {
     return false;
   }
-  console.log(res.user);
   try {
     const findStudent = await Student.findOne({
       where: { slack: member, class_id: classId }
@@ -69,24 +68,34 @@ const sendSurvey = async (res, member, classId, bot) => {
       question => question.dataValues.text
     );
 
-    bot.startPrivateConversation({ user: member }, async function(err, convo) {
+    // To do, stop slack from sending error message if student responds after convo closes.
+    bot.startPrivateConversation({ user: member }, function(err, convo) {
       if (err) {
         console.log(err);
       } else {
+        convo.setTimeout(10 * 1000);
+
+        console.log(convo);
+
         askQuestion(convo, questions, 0, studentId);
 
         askQuestion(convo, questions, 1, studentId);
 
         askQuestion(convo, questions, 2, studentId);
 
-        convo.addQuestion(
+        convo.addMessage(
           "Thanks, you've been very helpful",
-          (res, convo) => {
-            convo.stop();
-          },
-          {},
+
           "stop"
         );
+
+        convo.addMessage(
+          "Thanks, you've been useless.",
+
+          "on_timeout"
+        );
+
+        convo.activate();
       }
     });
   } catch (err) {
@@ -103,9 +112,7 @@ const surveys = (dateStr, bot, classId, message) =>
         { channel: message.channel },
         (err, res) => {
           res.channel.members.forEach(member => {
-            console.log(member);
             bot.api.users.info({ user: member }, async (err, res) => {
-              console.log("do something!");
               sendSurvey(res, member, classId, bot);
             });
           });
