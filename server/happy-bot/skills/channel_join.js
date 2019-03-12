@@ -18,7 +18,8 @@ module.exports = function(controller) {
         const classId = codClass.dataValues.id;
         // The surveys functions creates and starts a Crontask that sends the survey to all normal users in the channel.
         // Use https://crontab.guru/ for the Crontab format.
-        surveys("*/1 * * * MON-FRI", res, bot, classId);
+
+        surveys("*/1 * * * MON-FRI", bot, classId, message);
       } catch (err) {
         console.log(err);
       }
@@ -70,7 +71,7 @@ const sendSurvey = async (res, member, classId, bot) => {
 
     bot.startPrivateConversation({ user: member }, async function(err, convo) {
       if (err) {
-        console.log(error);
+        console.log(err);
       } else {
         askQuestion(convo, questions, 0, studentId);
 
@@ -93,16 +94,23 @@ const sendSurvey = async (res, member, classId, bot) => {
   }
 };
 
-const surveys = (dateStr, res, bot, classId) =>
+const surveys = (dateStr, bot, classId, message) =>
   new CronJob(
     dateStr,
     () => {
-      res.channel.members.forEach(member => {
-        bot.api.users.info({ user: member }, async (err, res) => {
-          console.log("do something!");
-          sendSurvey(res, member, classId, bot);
-        });
-      });
+      bot.api.channels.info(
+        // We need to refresh the channel info each time in order to keep track of students.
+        { channel: message.channel },
+        (err, res) => {
+          res.channel.members.forEach(member => {
+            console.log(member);
+            bot.api.users.info({ user: member }, async (err, res) => {
+              console.log("do something!");
+              sendSurvey(res, member, classId, bot);
+            });
+          });
+        }
+      );
     },
     null,
     true,
