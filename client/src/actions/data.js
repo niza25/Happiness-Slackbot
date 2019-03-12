@@ -45,9 +45,9 @@ const dataForClassfetched = data => ({
 
 export const getDataForClass = (classId) => (dispatch) => {
   
-  request(`${baseUrl}/classes/:${classId}`)
+  request(`${baseUrl}/classes/${classId}`)
     .then(response => {
-      dispatch(dataForClassfetched(classId, response.body))
+      dispatch(dataForClassfetched(response.body))
     })
     .catch(console.error)
 }

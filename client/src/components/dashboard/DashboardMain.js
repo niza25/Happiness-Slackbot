@@ -27,7 +27,7 @@ class DashboardMain extends Component {
 
                 <HeaderContainer />
 
-                <Tabs>
+                <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
 
                     {!this.props.activeClasses && 'Almost there...'}
 
