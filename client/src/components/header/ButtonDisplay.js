@@ -5,8 +5,10 @@ export default function ButtonDisplay (props){
 
     return (
       <div className='buttonDisplayContainer'>
-        <div className='moodButton'>{props.stats}</div>
-        <p>{props.topic}</p>
+        <div className='moodButton'>
+        {props.stats}
+        <p className='smallText'>{props.topic}</p>
+        </div>
       </div>
     )
   }

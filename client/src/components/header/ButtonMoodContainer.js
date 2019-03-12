@@ -13,8 +13,8 @@ class ButtonMoodContainer extends React.Component {
   render() {
 
     return (
-      <div className='spaceAround'>
-        <h5>Current mood of all active classes:</h5>
+      <div className='buttonsContainer spaceAround'>
+        <h5>All Classes Today:</h5>
         <div className='buttonsContainer'>
           <ButtonDisplay topic='Energy' stats='4.5' />
           <ButtonDisplay topic='Engagement' stats='4.5' />

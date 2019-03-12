@@ -5,7 +5,6 @@ import './dashboard.css'
 import { fetchActiveClasses, getDataForClass } from '../../actions/data'
 import HeaderContainer from '../header/HeaderContainer'
 import ChartDisplayContainer from './ChartDisplayContainer'
-import Container from 'react-bootstrap/Container'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 
@@ -28,7 +27,7 @@ class DashboardMain extends Component {
 
 
         return (
-            <Container className='main'>
+            <div className='main'>
 
                 <HeaderContainer />
 
@@ -50,7 +49,7 @@ class DashboardMain extends Component {
                 
                 <ChartDisplayContainer />
             
-            </Container>
+            </div>
         )
     }
 }
