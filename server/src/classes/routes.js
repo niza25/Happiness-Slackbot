@@ -50,7 +50,7 @@ router.get('/classes', function (req, res, next) {
       return next(err);
     })
 
-    return ( Energy, Engagement, Happiness )
+    return res.status(200).send( {Energy, Engagement, Happiness} )
   });
 
   
