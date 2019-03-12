@@ -15,47 +15,10 @@ module.exports = function(controller) {
           ? findCodClass
           : CodClass.create({ name: res.channel.name }));
         const classId = findCodClass.dataValues.id;
+
         res.channel.members.forEach(member => {
           bot.api.users.info({ user: member }, async (err, res) => {
-            if (res.user.is_bot) {
-              return false;
-            }
-            try {
-              const findStudent = await Student.findOne({
-                where: { slack: member, class_id: classId }
-              });
-              const student = await (findStudent
-                ? findStudent
-                : Student.create({ slack: member, class_id: classId }));
-              const studentId = student.dataValues.id;
-              console.log(student.dataValues);
-
-              const questions = await Question.findAll().map(
-                question => question.dataValues.text
-              );
-
-              bot.startPrivateConversation({ user: member }, async function(
-                err,
-                convo
-              ) {
-                if (err) {
-                  console.log(error);
-                } else {
-                  [0, 1, 2].forEach(i => askQuestion(convo, questions, i));
-
-                  convo.addQuestion(
-                    "Thanks, you've been very helpful",
-                    (res, convo) => {
-                      convo.stop();
-                    },
-                    {},
-                    "stop"
-                  );
-                }
-              });
-            } catch (err) {
-              console.log(err);
-            }
+            sendSurvey(res, member, classId, bot);
           });
         });
       } catch (err) {
@@ -65,11 +28,13 @@ module.exports = function(controller) {
   });
 };
 
-const askQuestion = (convo, questions, i) => {
-  const thread = !i ? `q${i + 1}` : "default";
-  return convo.addQuestion(
+const askQuestion = (convo, questions, i, studentId) => {
+  const thread = i ? `q${i + 1}` : "default";
+
+  convo.addQuestion(
     questions[i],
     async (res, convo) => {
+      console.log(i, thread);
       try {
         await Response.create({
           answer: res.event.text,
@@ -77,7 +42,8 @@ const askQuestion = (convo, questions, i) => {
           question_id: i + 1
         });
         const nextThread = i !== 2 ? `q${i + 2}` : "stop";
-        convo.gotoThread("q2");
+        console.log(i, nextThread);
+        convo.gotoThread(nextThread);
       } catch (err) {
         console.log(err);
       }
@@ -85,4 +51,47 @@ const askQuestion = (convo, questions, i) => {
     {},
     thread
   );
+};
+
+const sendSurvey = async (res, member, classId, bot) => {
+  if (res.user.is_bot) {
+    return false;
+  }
+  try {
+    const findStudent = await Student.findOne({
+      where: { slack: member, class_id: classId }
+    });
+    const student = await (findStudent
+      ? findStudent
+      : Student.create({ slack: member, class_id: classId }));
+    const studentId = student.dataValues.id;
+    console.log(student.dataValues);
+
+    const questions = await Question.findAll().map(
+      question => question.dataValues.text
+    );
+
+    bot.startPrivateConversation({ user: member }, async function(err, convo) {
+      if (err) {
+        console.log(error);
+      } else {
+        askQuestion(convo, questions, 0, studentId);
+
+        askQuestion(convo, questions, 1, studentId);
+
+        askQuestion(convo, questions, 2, studentId);
+
+        convo.addQuestion(
+          "Thanks, you've been very helpful",
+          (res, convo) => {
+            convo.stop();
+          },
+          {},
+          "stop"
+        );
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
