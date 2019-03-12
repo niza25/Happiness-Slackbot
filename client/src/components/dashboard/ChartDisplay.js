@@ -23,38 +23,37 @@ const data = [
 
 
 class CustomizedLabel extends Component {
-    
+
     render() {
-        const {x, y, stroke, value} = this.props;
+        const { x, y, stroke, value } = this.props;
 
         return <text x={x} y={y} dy={-8} fill={stroke}
-        fontSize={10} textAnchor="middle">{value}</text>;
+            fontSize={10} textAnchor="middle">{value}</text>;
     }
 }
 
 class CustomizedAxisTick extends Component {
-    
+
     render() {
         const { x, y, payload, } = this.props;
 
         return (
             <g transform={`translate(${x},${y})`}>
                 <text x={30} y={15} dy={16} textAnchor="end"
-                fill="black" transform="rotate(-25)">{payload.value}</text>
+                    fill="black" transform="rotate(-25)">{payload.value}</text>
             </g>
         );
     }
 }
 
-class ChartDisplay extends Component {
+class ChartDisplayFirst extends Component {
 
-      /*   componentDidMount() {
-  // fetch the data to display in the chart
-    } */
-
+    componentDidMount() {
+        // fetch the data to display in the chart
+    }
 
     render() {
-
+        
         return (
             <div >
                 <LineChart className='chartDisplay'
@@ -79,7 +78,7 @@ class ChartDisplay extends Component {
 }
 
 const mapStateToProps = state => ({
-    averageAll: state.averageAll
-  })
-  
-  export default connect(mapStateToProps)(ChartDisplay)
+    dataForClass: state.dataForClass
+})
+
+export default connect(mapStateToProps)(ChartDisplayFirst)

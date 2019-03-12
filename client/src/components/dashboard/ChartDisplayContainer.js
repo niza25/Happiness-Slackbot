@@ -10,12 +10,11 @@ import Dropdown from 'react-bootstrap/Dropdown'
 class ChartDisplayContainer extends React.Component {
 
   componentDidMount() {
-    this.props.getDataForClass(this.props.classId)
-    console.log(this.props.classId, 'classID, im fetching for this component')
+    //this.props.getDataForClass(this.props.classId)
   }
 
   render() {
-
+    
     return (
       <Container>
         <div className='aboveChart'>
@@ -33,7 +32,7 @@ class ChartDisplayContainer extends React.Component {
           <ParticipationDisplay percentage='87' />
         </div>
 
-        <ChartDisplay data={this.props.dataForClass} />
+        <ChartDisplay/>
 
       </Container>
     )

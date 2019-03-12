@@ -7,7 +7,7 @@ import './header.css'
 class ButtonMoodContainer extends React.Component {
 
   componentDidMount() {
-    this.props.getAverageAll()
+    //this.props.getAverageAll()
   }
 
   render() {

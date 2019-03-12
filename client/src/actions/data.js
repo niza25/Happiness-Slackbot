@@ -13,12 +13,15 @@ const activeClassesfetched = activeClasses => ({
   activeClasses
 })
 
-export const fetchActiveClasses = () => (dispatch, getState) => {
+export const fetchActiveClasses = () => (dispatch) => {
   
   request(`${baseUrl}/classes`)
     .then(response => {
       dispatch(activeClassesfetched(response.body))
     })
+    /* .then(response => {
+      dispatch(getDataForClass(1))
+    }) */
     .catch(console.error)
 }
 
