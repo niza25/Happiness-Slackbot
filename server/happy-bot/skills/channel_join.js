@@ -15,25 +15,10 @@ module.exports = function(controller) {
         const codClass = await (findCodClass
           ? findCodClass
           : CodClass.create({ name: res.channel.name }));
-        const classId = findCodClass.dataValues.id;
-
-        res.channel.members.forEach(member => {
-          bot.api.users.info({ user: member }, async (err, res) => {
-            // Use https://crontab.guru/ to figure out the format.
-            const morningSurvey = new CronJob(
-              "*/1 * * * MON-FRI",
-              () => {
-                console.log("do something!");
-                sendSurvey(res, member, classId, bot);
-              },
-              null,
-              true,
-              "Europe/Amsterdam"
-            );
-
-            morningSurvey.start();
-          });
-        });
+        const classId = codClass.dataValues.id;
+        // The surveys functions creates and starts a Crontask that sends the survey to all normal users in the channel.
+        // Use https://crontab.guru/ for the Crontab format.
+        surveys("*/1 * * * MON-FRI", res, bot, classId);
       } catch (err) {
         console.log(err);
       }
@@ -41,7 +26,7 @@ module.exports = function(controller) {
   });
 };
 
-const askQuestion = (convo, questions, i, studentId) => {
+const askQuestion = (convo, questions, i, studentId, classId) => {
   const thread = i ? `q${i + 1}` : "default";
 
   convo.addQuestion(
@@ -52,6 +37,7 @@ const askQuestion = (convo, questions, i, studentId) => {
           answer: res.event.text,
           student_id: studentId,
           question_id: i + 1
+          // class_id: classId
         });
         const nextThread = i !== 2 ? `q${i + 2}` : "stop";
         convo.gotoThread(nextThread);
@@ -106,3 +92,19 @@ const sendSurvey = async (res, member, classId, bot) => {
     console.log(err);
   }
 };
+
+const surveys = (dateStr, res, bot, classId) =>
+  new CronJob(
+    dateStr,
+    () => {
+      res.channel.members.forEach(member => {
+        bot.api.users.info({ user: member }, async (err, res) => {
+          console.log("do something!");
+          sendSurvey(res, member, classId, bot);
+        });
+      });
+    },
+    null,
+    true,
+    "Europe/Amsterdam"
+  );
