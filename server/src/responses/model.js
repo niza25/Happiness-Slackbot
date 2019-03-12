@@ -20,6 +20,7 @@ const Response = sequelize.define(
       field: "answer"
     }
   },
+  
   {
     tableName: "responses",
     timestamps: false
@@ -28,5 +29,6 @@ const Response = sequelize.define(
 
 Response.belongsTo(Student, { foreignKey: "student_id" });
 Student.hasMany(Response, { foreignKey: "student_id" });
+Response.belongsTo(Student, { foreignKey: "class_id" });
 
 module.exports = Response;
