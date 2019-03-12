@@ -6,9 +6,9 @@ import './header.css'
 
 class ButtonMoodContainer extends React.Component {
 
-  /*   componentDidMount() {
-  // this.props.getAverageAll()
-    } */
+  componentDidMount() {
+    // this.props.getAverageAll()
+  }
 
   render() {
 
