@@ -15,25 +15,10 @@ module.exports = function(controller) {
         const codClass = await (findCodClass
           ? findCodClass
           : CodClass.create({ name: res.channel.name }));
-        const classId = findCodClass.dataValues.id;
-
-        res.channel.members.forEach(member => {
-          bot.api.users.info({ user: member }, async (err, res) => {
-            // Use https://crontab.guru/ to figure out the format.
-            const morningSurvey = new CronJob(
-              "*/1 * * * MON-FRI",
-              () => {
-                console.log("do something!");
-                sendSurvey(res, member, classId, bot);
-              },
-              null,
-              true,
-              "Europe/Amsterdam"
-            );
-
-            morningSurvey.start();
-          });
-        });
+        const classId = codClass.dataValues.id;
+        // The surveys functions creates and starts a Crontask that sends the survey to all normal users in the channel.
+        // Use https://crontab.guru/ for the Crontab format.
+        surveys("*/1 * * * MON-FRI", res, bot, classId);
       } catch (err) {
         console.log(err);
       }
@@ -41,21 +26,20 @@ module.exports = function(controller) {
   });
 };
 
-const askQuestion = (convo, questions, i, studentId) => {
+const askQuestion = (convo, questions, i, studentId, classId) => {
   const thread = i ? `q${i + 1}` : "default";
 
   convo.addQuestion(
     questions[i],
     async (res, convo) => {
-      console.log(i, thread);
       try {
         await Response.create({
           answer: res.event.text,
           student_id: studentId,
           question_id: i + 1
+          // class_id: classId
         });
         const nextThread = i !== 2 ? `q${i + 2}` : "stop";
-        console.log(i, nextThread);
         convo.gotoThread(nextThread);
       } catch (err) {
         console.log(err);
@@ -67,9 +51,10 @@ const askQuestion = (convo, questions, i, studentId) => {
 };
 
 const sendSurvey = async (res, member, classId, bot) => {
-  if (res.user.is_bot) {
+  if (res.user.is_bot || res.user.is_admin || res.user.is_owner) {
     return false;
   }
+  console.log(res.user);
   try {
     const findStudent = await Student.findOne({
       where: { slack: member, class_id: classId }
@@ -78,7 +63,6 @@ const sendSurvey = async (res, member, classId, bot) => {
       ? findStudent
       : Student.create({ slack: member, class_id: classId }));
     const studentId = student.dataValues.id;
-    console.log(student.dataValues);
 
     const questions = await Question.findAll().map(
       question => question.dataValues.text
@@ -108,3 +92,19 @@ const sendSurvey = async (res, member, classId, bot) => {
     console.log(err);
   }
 };
+
+const surveys = (dateStr, res, bot, classId) =>
+  new CronJob(
+    dateStr,
+    () => {
+      res.channel.members.forEach(member => {
+        bot.api.users.info({ user: member }, async (err, res) => {
+          console.log("do something!");
+          sendSurvey(res, member, classId, bot);
+        });
+      });
+    },
+    null,
+    true,
+    "Europe/Amsterdam"
+  );
