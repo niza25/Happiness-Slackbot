@@ -22,7 +22,7 @@ class DashboardMain extends Component {
 
                 <HeaderContainer />
 
-                <Tabs defaultActiveKey="class23">
+                <Tabs>
 
                     {!this.props.activeClasses && 'Almost there...'}
 
