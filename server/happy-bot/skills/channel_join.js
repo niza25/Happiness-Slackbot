@@ -3,6 +3,7 @@ const CodClass = require("../../src/classes/model");
 const Question = require("../../src/questions/model");
 const Student = require("../../src/students/model");
 const Response = require("../../src/responses/model");
+const CronJob = require("cron").CronJob;
 
 module.exports = function(controller) {
   controller.on("bot_channel_join", (bot, message) => {
@@ -18,7 +19,19 @@ module.exports = function(controller) {
 
         res.channel.members.forEach(member => {
           bot.api.users.info({ user: member }, async (err, res) => {
-            sendSurvey(res, member, classId, bot);
+            // Use https://crontab.guru/ to figure out the format.
+            const morningSurvey = new CronJob(
+              "*/1 * * * MON-FRI",
+              () => {
+                console.log("do something!");
+                sendSurvey(res, member, classId, bot);
+              },
+              null,
+              true,
+              "Europe/Amsterdam"
+            );
+
+            morningSurvey.start();
           });
         });
       } catch (err) {
