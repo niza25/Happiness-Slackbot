@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import './dashboard.css'
 import { fetchActiveClasses } from '../../actions/data'
@@ -16,6 +17,10 @@ class DashboardMain extends Component {
 
 
     render() {
+
+        if (!this.props.authenticated) return (
+            <Redirect to="/login" />
+          )
 
         return (
             <Container className='main'>
@@ -44,7 +49,7 @@ class DashboardMain extends Component {
 }
 
 const mapStateToProps = state => ({
-    currentUser: state.currentUser,
+    authenticated: state.currentUser !== null,
     activeClasses: state.activeClasses && state.activeClasses.classes
 })
 
