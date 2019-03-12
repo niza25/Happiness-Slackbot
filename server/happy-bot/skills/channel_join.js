@@ -33,17 +33,21 @@ const askQuestion = (convo, questions, i, studentId, classId) => {
   convo.addQuestion(
     questions[i],
     async (res, convo) => {
-      try {
-        await Response.create({
-          answer: res.event.text,
-          student_id: studentId,
-          question_id: i + 1
-          // class_id: classId
-        });
-        const nextThread = i !== 2 ? `q${i + 2}` : "stop";
-        convo.gotoThread(nextThread);
-      } catch (err) {
-        console.log(err);
+      if (!["1", "2", "3", "4", "5"].includes(res.event.text)) {
+        convo.gotoThread(thread);
+      } else {
+        try {
+          await Response.create({
+            answer: res.event.text,
+            student_id: studentId,
+            question_id: i + 1
+            // class_id: classId
+          });
+          const nextThread = i !== 2 ? `q${i + 2}` : "stop";
+          convo.gotoThread(nextThread);
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
     {},
