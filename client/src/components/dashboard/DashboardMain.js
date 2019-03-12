@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-//import PropTypes from 'prop-types';
 import './dashboard.css'
+import { fetchActiveClasses } from '../../actions/data'
 import HeaderContainer from '../header/HeaderContainer'
 import ChartDisplayContainer from './ChartDisplayContainer'
-import ChartDisplay from './ChartDisplay'
 import Container from 'react-bootstrap/Container'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 
 class DashboardMain extends Component {
 
-      /*   componentDidMount() {
-  // fetch active clases data? to display on tabs
-  // fetch the data for default active class
-    } */
+    componentDidMount() {
+        this.props.activeClasses === null && this.props.fetchActiveClasses()
+    }
 
 
     render() {
@@ -24,17 +22,20 @@ class DashboardMain extends Component {
 
                 <HeaderContainer />
 
-                <Tabs defaultActiveKey="class23">
-                {/* map over the fetched list of classes to display tabs */}
-                    <Tab eventKey="class23" title="#class23">
-                        <ChartDisplayContainer />
-                    </Tab>
-                    <Tab eventKey="class24" title="#class24">
-                        <ChartDisplay />
-                    </Tab>
-                    <Tab eventKey="class25" title="#class25">
-                        <ChartDisplay />
-                    </Tab>
+                <Tabs>
+
+                    {!this.props.activeClasses && 'Almost there...'}
+
+                    {this.props.activeClasses &&
+                        this.props.activeClasses.map(activeClass => {
+                            return (
+                                <Tab eventKey={activeClass.name} title={activeClass.name}>
+                                    <ChartDisplayContainer />
+                                </Tab>
+                            )
+                        })
+                    }
+
                 </Tabs>
 
             </Container>
@@ -44,6 +45,7 @@ class DashboardMain extends Component {
 
 const mapStateToProps = state => ({
     currentUser: state.currentUser,
+    activeClasses: state.activeClasses && state.activeClasses.classes
 })
 
-export default connect(mapStateToProps)(DashboardMain);
+export default connect(mapStateToProps, { fetchActiveClasses })(DashboardMain);

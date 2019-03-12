@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 
 const router = new Router();
 
-router.post('/logins', (req, res, next) => {
+router.post('/login', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     const password_confirmation = req.body.password_confirmation;
@@ -42,12 +42,6 @@ router.post('/logins', (req, res, next) => {
                 })
             })
     }
-});
-
-router.get('/tokens', auth, (req,res) => {
-    res.send({
-        message: `Thanks for visiting tokens endpoint ${req.user.email}`
-    })
 });
 
 module.exports = router;

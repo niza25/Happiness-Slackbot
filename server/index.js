@@ -4,6 +4,7 @@ const authRouter = require("./src/auth/routes");
 const userRouter = require("./src/users/routes");
 const cors = require("cors");
 
+
 const classRouter = require("./src/classes/routes");
 const questionRouter = require("./src/questions/routes");
 const responseRouter = require("./src/responses/routes");
