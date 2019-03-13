@@ -9,7 +9,7 @@ const Response = sequelize.define(
   "responses",
   {
     response_time: {
-      type: "TIMESTAMP",
+      type: "DATE",
       allowNull: false,
       field: "response_time",
       defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
