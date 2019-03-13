@@ -14,14 +14,15 @@ const activeClassesfetched = activeClasses => ({
 })
 
 export const fetchActiveClasses = () => (dispatch) => {
-  
+
   request(`${baseUrl}/classes`)
     .then(response => {
       dispatch(activeClassesfetched(response.body))
+      return response.body.classes[0].id
     })
-    /* .then(response => {
-      dispatch(getDataForClass(1))
-    }) */
+    .then(response => {
+      dispatch(getDataForClass(response))
+    })
     .catch(console.error)
 }
 
@@ -32,7 +33,7 @@ const averageAllfetched = averageAll => ({
 })
 
 export const getAverageAll = () => (dispatch) => {
-  
+
   request(`${baseUrl}/average`)
     .then(response => {
       dispatch(averageAllfetched(response.body))
@@ -47,7 +48,7 @@ const dataForClassfetched = data => ({
 })
 
 export const getDataForClass = (classId) => (dispatch) => {
-  
+
   request(`${baseUrl}/classes/${classId}`)
     .then(response => {
       dispatch(dataForClassfetched(response.body))
