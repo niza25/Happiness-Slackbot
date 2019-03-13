@@ -107,7 +107,6 @@ const askQuestion = (i, questions, studentId, convo) =>
         question_id: i + 1
         // class_id: classId
       });
-      // whoa, I got the postback payload as a response to my convo.ask!
       convo.next();
     }
   );
