@@ -3,6 +3,7 @@ const CodClass = require("../../src/classes/model");
 const Question = require("../../src/questions/model");
 const Student = require("../../src/students/model");
 const Response = require("../../src/responses/model");
+const CronJob = require("cron").CronJob;
 
 module.exports = function(controller) {
   controller.on("bot_channel_join", (bot, message) => {
@@ -14,102 +15,115 @@ module.exports = function(controller) {
         const codClass = await (findCodClass
           ? findCodClass
           : CodClass.create({ name: res.channel.name }));
-        const classId = findCodClass.dataValues.id;
-        res.channel.members.forEach(member => {
-          bot.api.users.info({ user: member }, async (err, res) => {
-            if (res.user.is_bot) {
-              return false;
-            }
-            try {
-              const findStudent = await Student.findOne({
-                where: { slack: member, class_id: classId }
-              });
-              const student = await (findStudent
-                ? findStudent
-                : Student.create({ slack: member, class_id: classId }));
-              const studentId = student.dataValues.id;
-              console.log(student.dataValues);
+        const classId = codClass.dataValues.id;
+        // The surveys functions creates and starts a Crontask that sends the survey to all normal users in the channel.
+        // Use https://crontab.guru/ for the Crontab format.
 
-              const questions = await Question.findAll().map(
-                question => question.dataValues.text
-              );
-
-              bot.startPrivateConversation({ user: member }, async function(
-                err,
-                convo
-              ) {
-                if (err) {
-                  console.log(error);
-                } else {
-                  convo.addQuestion(
-                    questions[0],
-                    async (res, convo) => {
-                      try {
-                        await Response.create({
-                          answer: res.event.text,
-                          student_id: studentId,
-                          question_id: 1
-                        });
-                        convo.gotoThread("q2");
-                      } catch (err) {
-                        console.log(err);
-                      }
-                    },
-                    {},
-                    "default"
-                  );
-                  convo.addQuestion(
-                    questions[1],
-                    async (res, convo) => {
-                      try {
-                        await Response.create({
-                          answer: res.event.text,
-                          student_id: studentId,
-                          question_id: 2
-                        });
-                        convo.gotoThread("q3");
-                      } catch (err) {
-                        console.log(err);
-                      }
-                    },
-                    {},
-                    "q2"
-                  );
-                  convo.addQuestion(
-                    questions[2],
-                    async (res, convo) => {
-                      try {
-                        await Response.create({
-                          answer: res.event.text,
-                          student_id: studentId,
-                          question_id: 3
-                        });
-                        convo.gotoThread("stop");
-                      } catch (err) {
-                        console.log(err);
-                      }
-                    },
-                    {},
-                    "q3"
-                  );
-                  convo.addQuestion(
-                    "Thanks, you've been very helpful",
-                    (res, convo) => {
-                      convo.stop();
-                    },
-                    {},
-                    "stop"
-                  );
-                }
-              });
-            } catch (err) {
-              console.log(err);
-            }
-          });
-        });
+        surveys("*/1 * * * MON-FRI", bot, classId, message);
       } catch (err) {
         console.log(err);
       }
     });
   });
 };
+
+const askQuestion = (convo, questions, i, studentId, classId) => {
+  const thread = i ? `q${i + 1}` : "default";
+
+  convo.addQuestion(
+    questions[i],
+    async (res, convo) => {
+      if (!["1", "2", "3", "4", "5"].includes(res.event.text)) {
+        convo.gotoThread(thread);
+      } else {
+        try {
+          await Response.create({
+            answer: res.event.text,
+            student_id: studentId,
+            question_id: i + 1
+            // class_id: classId
+          });
+          const nextThread = i !== 2 ? `q${i + 2}` : "stop";
+          convo.gotoThread(nextThread);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    },
+    {},
+    thread
+  );
+};
+
+const sendSurvey = async (res, member, classId, bot) => {
+  if (res.user.is_bot || res.user.is_admin || res.user.is_owner) {
+    return false;
+  }
+  try {
+    const findStudent = await Student.findOne({
+      where: { slack: member, class_id: classId }
+    });
+    const student = await (findStudent
+      ? findStudent
+      : Student.create({ slack: member, class_id: classId }));
+    const studentId = student.dataValues.id;
+
+    const questions = await Question.findAll().map(
+      question => question.dataValues.text
+    );
+
+    // To do, stop slack from sending error message if student responds after convo closes.
+    bot.startPrivateConversation({ user: member }, function(err, convo) {
+      if (err) {
+        console.log(err);
+      } else {
+        convo.setTimeout(10 * 1000);
+
+        console.log(convo);
+
+        askQuestion(convo, questions, 0, studentId);
+
+        askQuestion(convo, questions, 1, studentId);
+
+        askQuestion(convo, questions, 2, studentId);
+
+        convo.addMessage(
+          "Thanks, you've been very helpful",
+
+          "stop"
+        );
+
+        convo.addMessage(
+          "Thanks, you've been useless.",
+
+          "on_timeout"
+        );
+
+        convo.activate();
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const surveys = (dateStr, bot, classId, message) =>
+  new CronJob(
+    dateStr,
+    () => {
+      bot.api.channels.info(
+        // We need to refresh the channel info each time in order to keep track of students.
+        { channel: message.channel },
+        (err, res) => {
+          res.channel.members.forEach(member => {
+            bot.api.users.info({ user: member }, async (err, res) => {
+              sendSurvey(res, member, classId, bot);
+            });
+          });
+        }
+      );
+    },
+    null,
+    true,
+    "Europe/Amsterdam"
+  );
