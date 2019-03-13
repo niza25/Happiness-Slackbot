@@ -1,33 +1,48 @@
-.App {
+.app {
+  display: block;
+  position: relative;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.app::after {
+  content: "";
+  background: url('https://images.pexels.com/photos/1068523/pexels-photo-1068523.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500');
+  opacity: 0.6;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;  
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color:#cc0000;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.footer{
+  width: 100vw;
+  height: 50px;
+  padding-top: 10px;
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  background-color: #f2f2f2;
+  color: black;
   }
-  to {
-    transform: rotate(360deg);
-  }
+
+.loginForm{
+  margin: 15vh auto;
+  max-width: 50%;
+  text-align: left;
+  color: #ff33ff;
+  font-size: 1.2em;
+  font-weight: bold;
 }
+
+.fullPage{
+  width: 100vw;
+  height: 100vh; 
+}
+
+
+

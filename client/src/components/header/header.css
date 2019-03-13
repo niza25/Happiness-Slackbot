@@ -1,0 +1,44 @@
+.headerContainer{
+  width: 90%;
+  margin: 0 auto;
+  /* padding-top: 1.2em; */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonsContainer{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonDisplayContainer{
+  width: 30%;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.moodButton{
+  height: 100px;
+  width: 100px;
+  font-size: 1.8em;
+  background-color:#ffe6ff /* #ffccff */;
+  border-radius: 35px;
+  margin: 0 auto;
+  margin-bottom: 0.7em;
+  padding-top: 30%;
+ /*  -webkit-box-shadow: 10px 10px 17px -9px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 17px -9px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 17px -9px rgba(0,0,0,0.75); */
+}
+
+.smallText{
+  font-size: 0.4em;
+}
+
+.spaceAround{
+  margin: 1em 1em;
+}

@@ -6,12 +6,11 @@ const bcrypt = require('bcrypt');
 
 const router = new Router();
 
-router.post('/logins', (req, res, next) => {
+router.post('/login', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
-    const password_confirmation = req.body.password_confirmation;
 
-    if(!email || !password || !password_confirmation){
+    if(!email || !password){
         res.status(400).send({
             message: 'Please using valid email address password and password confirmation'
         })
@@ -42,12 +41,6 @@ router.post('/logins', (req, res, next) => {
                 })
             })
     }
-});
-
-router.get('/tokens', auth, (req,res) => {
-    res.send({
-        message: `Thanks for visiting tokens endpoint ${req.user.email}`
-    })
 });
 
 module.exports = router;

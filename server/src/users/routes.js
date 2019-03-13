@@ -8,7 +8,6 @@ router.post('/users', (req, res, next) => {
     const user = {
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 10),
-        password_confirmation: bcrypt.hashSync(req.body.password_confirmation, 10)
     }
 
     User
@@ -17,7 +16,6 @@ router.post('/users', (req, res, next) => {
             res.send({
                 id: entity.id,
                 email: entity.email,
-                userName: entity.user_name
             })
         }).catch(error => {
         console.error(error);
