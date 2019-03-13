@@ -10,7 +10,7 @@ export default (state = initialState, action = {}) => {
       const payload = action.data;
       console.log(payload, 'what comes')
 
-      //mapping over the array of days inside one mood
+      //mapping over the array of days inside each mood
       let energyData = payload.Energy.map(date => {
 
         return { name: date.response_time, Energy: Number(date.avg).toFixed(1) }
