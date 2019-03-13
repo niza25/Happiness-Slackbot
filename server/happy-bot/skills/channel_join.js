@@ -27,6 +27,27 @@ module.exports = function(controller) {
   });
 };
 
+const surveys = (dateStr, bot, classId, message) =>
+  new CronJob(
+    dateStr,
+    () => {
+      bot.api.channels.info(
+        // We need to refresh the channel info each time in order to keep track of students.
+        { channel: message.channel },
+        (err, res) => {
+          res.channel.members.forEach(member => {
+            bot.api.users.info({ user: member }, async (err, res) => {
+              sendSurvey(res, member, classId, bot);
+            });
+          });
+        }
+      );
+    },
+    null,
+    true,
+    "Europe/Amsterdam"
+  );
+
 const sendSurvey = async (res, member, classId, bot) => {
   if (res.user.is_bot || res.user.is_admin || res.user.is_owner) {
     return false;
@@ -57,10 +78,10 @@ const sendSurvey = async (res, member, classId, bot) => {
 
         askQuestion(2, questions, studentId, convo);
 
-        convo.say("Thank you! Have fun today");
+        convo.say("Thank you! Have fun today :cocorobot:");
 
         convo.addMessage(
-          "Okay, I can see you're busy... have fun!",
+          "Okay, I can see you're busy... have fun! :cocorobot:",
 
           "on_timeout"
         );
@@ -72,27 +93,6 @@ const sendSurvey = async (res, member, classId, bot) => {
     console.log(err);
   }
 };
-
-const surveys = (dateStr, bot, classId, message) =>
-  new CronJob(
-    dateStr,
-    () => {
-      bot.api.channels.info(
-        // We need to refresh the channel info each time in order to keep track of students.
-        { channel: message.channel },
-        (err, res) => {
-          res.channel.members.forEach(member => {
-            bot.api.users.info({ user: member }, async (err, res) => {
-              sendSurvey(res, member, classId, bot);
-            });
-          });
-        }
-      );
-    },
-    null,
-    true,
-    "Europe/Amsterdam"
-  );
 
 const askQuestion = (i, questions, studentId, convo) =>
   convo.ask(
@@ -111,9 +111,10 @@ const askQuestion = (i, questions, studentId, convo) =>
     }
   );
 
+// You will need to add an emoticon called :cocorobot: to slack.
 const attachment = (i, questions) => [
   {
-    title: questions[i],
+    title: `${questions[i]} :cocorobot:`,
     callback_id: "12345",
     attachment_type: "default",
     actions: [1, 2, 3, 4, 5].map(j => ({
