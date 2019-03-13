@@ -5,7 +5,7 @@ import './dashboard.css'
 
 const data = [
     {
-        name: 'Monday', Energy: 4, Engagement: 4, Happiness: 3.9,
+        name: 'Monday', Energy:4 , Engagement: 4, Happiness: 3.9,
     },
     {
         name: 'Tuesday', Energy: 4.5, Engagement: 4.3, Happiness: 4.5,
@@ -61,7 +61,7 @@ class ChartDisplay extends Component {
                 <LineChart className='chartDisplay'
                     width={900}
                     height={500}
-                    data={data}
+                    data={this.props.dataForClass}
                     margin={{ top: 50, right: 40, left: 20, bottom: 40 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" height={90} tick={<CustomizedAxisTick />} />
