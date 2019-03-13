@@ -46,14 +46,16 @@ class CustomizedAxisTick extends Component {
     }
 }
 
-class ChartDisplayFirst extends Component {
+class ChartDisplay extends Component {
 
     componentDidMount() {
         // fetch the data to display in the chart
     }
 
+    
+
     render() {
-        
+        console.log(this.props.dataForClass)
         return (
             <div >
                 <LineChart className='chartDisplay'
@@ -81,4 +83,4 @@ const mapStateToProps = state => ({
     dataForClass: state.dataForClass
 })
 
-export default connect(mapStateToProps)(ChartDisplayFirst)
+export default connect(mapStateToProps)(ChartDisplay)
