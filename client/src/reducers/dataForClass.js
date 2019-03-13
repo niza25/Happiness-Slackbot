@@ -4,8 +4,20 @@ const initialState = [];
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
+    
     case DATA_FOR_CLASS_FETCHED:
+    
     const payload = action.data;
+    console.log(payload, 'what comes')
+    
+//mapping over the array of days inside one mood
+    let newData = payload.Energy.map(date => {
+      
+return {name: date.response_time, Energy: date.avg, Engagement: payload.Engagement.avg, Happiness: payload.Happiness.avg}
+    })
+
+    console.log(newData, 'newData')
+    
     const data = [
       {
           name: payload.Energy[0].response_time, Energy: Number(payload.Energy[0].avg).toFixed(1) , Engagement: Number(payload.Engagement[0].avg).toFixed(1), Happiness: Number(payload.Happiness[0].avg).toFixed(1),
@@ -23,9 +35,8 @@ export default (state = initialState, action = {}) => {
           name: 'Friday', Energy: 4.8, Engagement: 4, Happiness: 4.2,
       }
   ]
-  console.log(data, 'data')
-  console.log(action.data, 'action.data')
-      return data;
+
+      return newData;
     default:
       return state
   }

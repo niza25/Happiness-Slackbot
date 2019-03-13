@@ -11,7 +11,6 @@ class ButtonMoodContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.averageAll, 'ave')
 
     return (
 

@@ -55,7 +55,7 @@ class ChartDisplay extends Component {
     
 
     render() {
-        console.log(this.props.dataForClass)
+        
         return (
             <div >
                 <LineChart className='chartDisplay'
