@@ -30,29 +30,9 @@ module.exports = function(controller) {
 const askQuestion = (convo, questions, i, studentId, classId) => {
   const thread = i ? `q${i + 1}` : "default";
 
-  convo.addQuestion(
-    questions[i],
-    async (res, convo) => {
-      if (!["1", "2", "3", "4", "5"].includes(res.event.text)) {
-        convo.gotoThread(thread);
-      } else {
-        try {
-          await Response.create({
-            answer: res.event.text,
-            student_id: studentId,
-            question_id: i + 1
-            // class_id: classId
-          });
-          const nextThread = i !== 2 ? `q${i + 2}` : "stop";
-          convo.gotoThread(nextThread);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    },
-    {},
-    thread
-  );
+  convo.ask({
+    attachments: question1
+  });
 };
 
 const sendSurvey = async (res, member, classId, bot) => {
@@ -77,15 +57,178 @@ const sendSurvey = async (res, member, classId, bot) => {
       if (err) {
         console.log(err);
       } else {
-        convo.setTimeout(10 * 1000);
+        convo.setTimeout(20 * 1000);
 
-        console.log(convo);
+        convo.ask(
+          {
+            attachments: [
+              {
+                title: "Are you happy?",
+                callback_id: "123",
+                attachment_type: "default",
+                actions: [
+                  {
+                    name: "1",
+                    text: "1",
+                    value: "1",
+                    type: "button"
+                  },
+                  {
+                    name: "2",
+                    text: "2",
+                    value: "2",
+                    type: "button"
+                  },
+                  {
+                    name: "3",
+                    text: "3",
+                    value: "3",
+                    type: "button"
+                  },
+                  {
+                    name: "4",
+                    text: "4",
+                    value: "4",
+                    type: "button"
+                  },
+                  {
+                    name: "5",
+                    text: "5",
+                    value: "5",
+                    type: "button"
+                  }
+                ]
+              }
+            ]
+          },
+          async (res, convo) => {
+            console.log(res.text);
+            await Response.create({
+              answer: res.text,
+              student_id: studentId,
+              question_id: 1
+              // class_id: classId
+            });
+            // whoa, I got the postback payload as a response to my convo.ask!
+            convo.next();
+          }
+        );
 
-        askQuestion(convo, questions, 0, studentId);
+        convo.ask(
+          {
+            attachments: [
+              {
+                title: "Are you really happy?",
+                callback_id: "123",
+                attachment_type: "default",
+                actions: [
+                  {
+                    name: "1",
+                    text: "1",
+                    value: "1",
+                    type: "button"
+                  },
+                  {
+                    name: "2",
+                    text: "2",
+                    value: "2",
+                    type: "button"
+                  },
+                  {
+                    name: "3",
+                    text: "3",
+                    value: "3",
+                    type: "button"
+                  },
+                  {
+                    name: "4",
+                    text: "4",
+                    value: "4",
+                    type: "button"
+                  },
+                  {
+                    name: "5",
+                    text: "5",
+                    value: "5",
+                    type: "button"
+                  }
+                ]
+              }
+            ]
+          },
+          async (res, convo) => {
+            console.log(res.text);
+            await Response.create({
+              answer: res.text,
+              student_id: studentId,
+              question_id: 2
+              // class_id: classId
+            });
+            // whoa, I got the postback payload as a response to my convo.ask!
+            convo.next();
+          }
+        );
+
+        convo.ask(
+          {
+            attachments: [
+              {
+                title: "Are you really really happy?",
+                callback_id: "123",
+                attachment_type: "default",
+                actions: [
+                  {
+                    name: "1",
+                    text: "1",
+                    value: "1",
+                    type: "button"
+                  },
+                  {
+                    name: "2",
+                    text: "2",
+                    value: "2",
+                    type: "button"
+                  },
+                  {
+                    name: "3",
+                    text: "3",
+                    value: "3",
+                    type: "button"
+                  },
+                  {
+                    name: "4",
+                    text: "4",
+                    value: "4",
+                    type: "button"
+                  },
+                  {
+                    name: "5",
+                    text: "5",
+                    value: "5",
+                    type: "button"
+                  }
+                ]
+              }
+            ]
+          },
+          async (res, convo) => {
+            console.log(res.text);
+            await Response.create({
+              answer: res.text,
+              student_id: studentId,
+              question_id: 3
+              // class_id: classId
+            });
+            // whoa, I got the postback payload as a response to my convo.ask!
+            convo.next();
+          }
+        );
+
+        /* askQuestion(convo, questions, 0, studentId);
 
         askQuestion(convo, questions, 1, studentId);
 
-        askQuestion(convo, questions, 2, studentId);
+        askQuestion(convo, questions, 2, studentId); */
 
         convo.addMessage(
           "Thanks, you've been very helpful",
@@ -127,3 +270,63 @@ const surveys = (dateStr, bot, classId, message) =>
     true,
     "Europe/Amsterdam"
   );
+
+const question1 = [
+  {
+    type: "section",
+    text: {
+      type: "mrkdwn",
+      text: "How are you feeling this morning?"
+    },
+    accessory: {
+      type: "static_select",
+      placeholder: {
+        type: "plain_text",
+        text: "Pick a number",
+        emoji: true
+      },
+      options: [
+        {
+          text: {
+            type: "plain_text",
+            text: "1",
+            emoji: true
+          },
+          value: "value-1"
+        },
+        {
+          text: {
+            type: "plain_text",
+            text: "2",
+            emoji: true
+          },
+          value: "value-2"
+        },
+        {
+          text: {
+            type: "plain_text",
+            text: "3",
+            emoji: true
+          },
+          value: "value-3"
+        },
+        {
+          text: {
+            type: "plain_text",
+            text: "4",
+            emoji: true
+          },
+          value: "value-4"
+        },
+        {
+          text: {
+            type: "plain_text",
+            text: "5",
+            emoji: true
+          },
+          value: "value-5"
+        }
+      ]
+    }
+  }
+];
