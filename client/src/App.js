@@ -10,12 +10,13 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
 class App extends Component {
+  
   render() {
     return (
       <BrowserRouter>
         <div className='app'>
           <Navbar bg="light" variant='light' expand="lg" className='mainNavbar' /* fixed="top" */ >
-            <Navbar.Brand href="/dashboard">The Student's Happiness Project</Navbar.Brand>
+            <Navbar.Brand href="/dashboard">The Student Happiness Project</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
 

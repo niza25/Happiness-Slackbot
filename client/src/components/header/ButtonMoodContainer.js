@@ -18,9 +18,9 @@ class ButtonMoodContainer extends React.Component {
         <h5>All Classes Today:</h5>
         {this.props.averageAll &&
           <div className='buttonsContainer'>
-            <ButtonDisplay topic='Energy' stats={Number(this.props.averageAll.EnergyAll[0].avg).toFixed(1)} />
-            <ButtonDisplay topic='Engagement' stats={Number(this.props.averageAll.EngagementAll[0].avg).toFixed(1)} />
-            <ButtonDisplay topic='Happinness' stats={Number(this.props.averageAll.HappinessAll[0].avg).toFixed(1)} />
+            <ButtonDisplay topic='Energy' stats={this.props.averageAll.EnergyAll} />
+            <ButtonDisplay topic='Engagement' stats={this.props.averageAll.EngagementAll} />
+            <ButtonDisplay topic='Happinness' stats={this.props.averageAll.HappinessAll} />
           </div>
         }
 

@@ -9,9 +9,6 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 class ChartDisplayContainer extends React.Component {
 
-  componentDidMount() {
-    //this.props.getDataForClass(this.props.classId)
-  }
 
   render() {
     
@@ -30,8 +27,9 @@ class ChartDisplayContainer extends React.Component {
           </Dropdown>
 
           <ParticipationDisplay percentage='87' />
+          
         </div>
-
+        <hr></hr>
         <ChartDisplay/>
 
       </Container>
