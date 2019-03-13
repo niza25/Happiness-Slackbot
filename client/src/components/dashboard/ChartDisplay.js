@@ -5,7 +5,7 @@ import './dashboard.css'
 
 const data = [
     {
-        name: 'Monday', Energy: 4, Engagement: 4, Happiness: 3.9,
+        name: 'Monday', Energy:4 , Engagement: 4, Happiness: 3.9,
     },
     {
         name: 'Tuesday', Energy: 4.5, Engagement: 4.3, Happiness: 4.5,
@@ -46,20 +46,22 @@ class CustomizedAxisTick extends Component {
     }
 }
 
-class ChartDisplayFirst extends Component {
+class ChartDisplay extends Component {
 
     componentDidMount() {
         // fetch the data to display in the chart
     }
 
+    
+
     render() {
-        
+        console.log(this.props.dataForClass)
         return (
             <div >
                 <LineChart className='chartDisplay'
                     width={900}
                     height={500}
-                    data={data}
+                    data={this.props.dataForClass}
                     margin={{ top: 50, right: 40, left: 20, bottom: 40 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" height={90} tick={<CustomizedAxisTick />} />
@@ -81,4 +83,4 @@ const mapStateToProps = state => ({
     dataForClass: state.dataForClass
 })
 
-export default connect(mapStateToProps)(ChartDisplayFirst)
+export default connect(mapStateToProps)(ChartDisplay)
