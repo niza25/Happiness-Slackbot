@@ -9,8 +9,8 @@
 .aboveChart{
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-top: 2em;
   margin-bottom: 2em;
 }
