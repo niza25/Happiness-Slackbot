@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import './dashboard.css'
 
-const data = [
+/* const data = [
     {
         name: 'Monday', Energy:4 , Engagement: 4, Happiness: 3.9,
     },
@@ -19,7 +19,7 @@ const data = [
     {
         name: 'Friday', Energy: 4.8, Engagement: 4, Happiness: 4.2,
     }
-];
+]; */
 
 
 class CustomizedLabel extends Component {
@@ -48,29 +48,52 @@ class CustomizedAxisTick extends Component {
 
 class ChartDisplay extends Component {
 
-    componentDidMount() {
-        // fetch the data to display in the chart
-    }
-
-    
-
     render() {
         
         return (
-            <div >
+            <div>
+                <h5>Energy:</h5>
                 <LineChart className='chartDisplay'
-                    width={900}
+                    width={1000}
                     height={500}
-                    data={this.props.dataForClass}
+                    data={this.props.dataForClass[0]}
                     margin={{ top: 50, right: 40, left: 20, bottom: 40 }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" height={90} tick={<CustomizedAxisTick />} />
                     <YAxis type="number" height={90}
-                        domain={[1, 2, 3, 4, 5]} />
+                        domain={[1, 5]} />
                     <Tooltip />
                     <Legend />
                     <Line type="monotone" dataKey="Energy" stroke="#990000" label={<CustomizedLabel />} />
+                </LineChart>
+
+                <h5>Engagement:</h5>
+                <LineChart className='chartDisplay'
+                    width={1000}
+                    height={500}
+                    data={this.props.dataForClass[1]}
+                    margin={{ top: 50, right: 40, left: 20, bottom: 40 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" height={90} tick={<CustomizedAxisTick />} />
+                    <YAxis type="number" height={90}
+                        domain={[1, 5]} />
+                    <Tooltip />
+                    <Legend />
                     <Line type="monotone" dataKey="Engagement" stroke="#ff9900" label={<CustomizedLabel />} />
+                </LineChart>
+
+                <h5>Happiness:</h5>
+                <LineChart className='chartDisplay'
+                    width={1000}
+                    height={500}
+                    data={this.props.dataForClass[2]}
+                    margin={{ top: 50, right: 40, left: 20, bottom: 40 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" height={90} tick={<CustomizedAxisTick />} />
+                    <YAxis type="number" height={90}
+                        domain={[1, 5]} />
+                    <Tooltip />
+                    <Legend />
                     <Line type="monotone" dataKey="Happiness" stroke="#0033cc" label={<CustomizedLabel />} />
                 </LineChart>
             </div>
