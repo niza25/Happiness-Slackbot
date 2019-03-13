@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import './header.css'
-import Container from 'react-bootstrap/Container'
 import ButtonMoodContainer from './ButtonMoodContainer'
 
 
@@ -11,16 +10,14 @@ class HeaderContainer extends React.Component {
   render() {
 
     return (
-      <Container className='headerContainer'>
-
+      <div className='headerContainer'>
         <div>
-          <h2>The Student's Happiness Project</h2>
-          <h3>Slackbot Survey Dashboard</h3>
+          <h2>The Student Happiness Project</h2>
         </div>
 
         <ButtonMoodContainer />
 
-      </Container>
+      </div>
     )
   }
 }
