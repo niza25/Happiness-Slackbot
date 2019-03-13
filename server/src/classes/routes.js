@@ -26,11 +26,12 @@ router.get('/classes', function (req, res, next) {
      const Energy = await Response
     .sequelize.query(`SELECT AVG(answer),response_time  FROM responses where class_id = ${ClassId} AND question_id = 1  group by response_time; `, Response)
     .then(average => {
+      
       return average[0]
     }).catch(function (err) {
       return next(err);
     })
-    //console.log(query1)
+
 
     const Engagement =  await Response
     .sequelize.query(`SELECT AVG(answer),response_time  FROM responses where class_id = ${ClassId} AND question_id =2  group by response_time; `, Response)
@@ -40,7 +41,6 @@ router.get('/classes', function (req, res, next) {
     .catch(function (err) {
       return next(err);
     })
-       //console.log('query2',query2)
 
     const Happiness = await Response
     .sequelize.query(`SELECT AVG(answer),response_time  FROM responses where class_id = ${ClassId} AND question_id = 3  group by response_time; `, Response)
@@ -63,8 +63,7 @@ router.get('/classes', function (req, res, next) {
      const EnergyAll = await Response
     .sequelize.query(`SELECT AVG(answer) FROM responses where question_id = 1  AND response_time = '${today}' `, Response)
     .then(average => {
-      // console.log('EnergyAll',average)
-      return average[0]
+      return parseFloat(average[0][0].avg).toFixed(1)
     }).catch(function (err) {
       return next(err);
     })
@@ -72,8 +71,7 @@ router.get('/classes', function (req, res, next) {
     const EngagementAll =  await Response
     .sequelize.query(`SELECT AVG(answer) FROM responses where question_id = 3  AND response_time = '${today}' `, Response)
     .then(average => {
-      // console.log('EnergyAll',average)
-      return average[0]
+      return parseFloat(average[0][0].avg).toFixed(1)
     }).catch(function (err) {
       return next(err);
     })
@@ -81,8 +79,8 @@ router.get('/classes', function (req, res, next) {
     const HappinessAll = await Response
     .sequelize.query(`SELECT AVG(answer) FROM responses where question_id = 3  AND response_time = '${today}' `, Response)
     .then(average => {
-      // console.log('EnergyAll',average)
-      return average[0]
+      return parseFloat(average[0][0].avg).toFixed(1)
+      
     }).catch(function (err) {
       return next(err);
     })
