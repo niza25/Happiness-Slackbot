@@ -3,6 +3,7 @@ const Class = require("./model");
 const Response = require('../responses/model')
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
+const moment = require('moment');
 
 const router = new Router();
 
@@ -51,6 +52,41 @@ router.get('/classes', function (req, res, next) {
     })
 
     return res.status(200).send( {Energy, Engagement, Happiness} ) 
+  });
+
+
+
+
+  router.get('/average', async function (req, res, next) {
+    const today = moment().format('YYYY-MM-DD')
+
+     const EnergyAll = await Response
+    .sequelize.query(`SELECT AVG(answer) FROM responses where question_id = 1  AND response_time = '${today}' `, Response)
+    .then(average => {
+      // console.log('EnergyAll',average)
+      return average[0]
+    }).catch(function (err) {
+      return next(err);
+    })
+   
+    const EngagementAll =  await Response
+    .sequelize.query(`SELECT AVG(answer) FROM responses where question_id = 3  AND response_time = '${today}' `, Response)
+    .then(average => {
+      // console.log('EnergyAll',average)
+      return average[0]
+    }).catch(function (err) {
+      return next(err);
+    })
+    
+    const HappinessAll = await Response
+    .sequelize.query(`SELECT AVG(answer) FROM responses where question_id = 3  AND response_time = '${today}' `, Response)
+    .then(average => {
+      // console.log('EnergyAll',average)
+      return average[0]
+    }).catch(function (err) {
+      return next(err);
+    })
+    return res.status(200).send( {EnergyAll, EngagementAll, HappinessAll} ) 
   });
 
   
