@@ -27,33 +27,26 @@ module.exports = function(controller) {
   });
 };
 
-const askQuestion = (convo, questions, i, studentId, classId) => {
-  const thread = i ? `q${i + 1}` : "default";
-
-  convo.addQuestion(
-    questions[i],
-    async (res, convo) => {
-      if (!["1", "2", "3", "4", "5"].includes(res.event.text)) {
-        convo.gotoThread(thread);
-      } else {
-        try {
-          await Response.create({
-            answer: res.event.text,
-            student_id: studentId,
-            question_id: i + 1
-            // class_id: classId
+const surveys = (dateStr, bot, classId, message) =>
+  new CronJob(
+    dateStr,
+    () => {
+      bot.api.channels.info(
+        // We need to refresh the channel info each time in order to keep track of students.
+        { channel: message.channel },
+        (err, res) => {
+          res.channel.members.forEach(member => {
+            bot.api.users.info({ user: member }, async (err, res) => {
+              sendSurvey(res, member, classId, bot);
+            });
           });
-          const nextThread = i !== 2 ? `q${i + 2}` : "stop";
-          convo.gotoThread(nextThread);
-        } catch (err) {
-          console.log(err);
         }
-      }
+      );
     },
-    {},
-    thread
+    null,
+    true,
+    "Europe/Amsterdam"
   );
-};
 
 const sendSurvey = async (res, member, classId, bot) => {
   if (res.user.is_bot || res.user.is_admin || res.user.is_owner) {
@@ -79,22 +72,16 @@ const sendSurvey = async (res, member, classId, bot) => {
       } else {
         convo.setTimeout(10 * 1000);
 
-        console.log(convo);
+        askQuestion(0, questions, studentId, convo);
 
-        askQuestion(convo, questions, 0, studentId);
+        askQuestion(1, questions, studentId, convo);
 
-        askQuestion(convo, questions, 1, studentId);
+        askQuestion(2, questions, studentId, convo);
 
-        askQuestion(convo, questions, 2, studentId);
-
-        convo.addMessage(
-          "Thanks, you've been very helpful",
-
-          "stop"
-        );
+        convo.say("Thank you! Have fun today :cocorobot:");
 
         convo.addMessage(
-          "Thanks, you've been useless.",
+          "Okay, I can see you're busy... have fun! :cocorobot:",
 
           "on_timeout"
         );
@@ -107,23 +94,34 @@ const sendSurvey = async (res, member, classId, bot) => {
   }
 };
 
-const surveys = (dateStr, bot, classId, message) =>
-  new CronJob(
-    dateStr,
-    () => {
-      bot.api.channels.info(
-        // We need to refresh the channel info each time in order to keep track of students.
-        { channel: message.channel },
-        (err, res) => {
-          res.channel.members.forEach(member => {
-            bot.api.users.info({ user: member }, async (err, res) => {
-              sendSurvey(res, member, classId, bot);
-            });
-          });
-        }
-      );
+const askQuestion = (i, questions, studentId, convo) =>
+  convo.ask(
+    {
+      attachments: attachment(i, questions)
     },
-    null,
-    true,
-    "Europe/Amsterdam"
+    async (res, convo) => {
+      console.log(res.text);
+      await Response.create({
+        answer: res.text,
+        student_id: studentId,
+        question_id: i + 1
+        // class_id: classId
+      });
+      convo.next();
+    }
   );
+
+// You will need to add an emoticon called :cocorobot: to slack.
+const attachment = (i, questions) => [
+  {
+    title: `${questions[i]} :cocorobot:`,
+    callback_id: "12345",
+    attachment_type: "default",
+    actions: [1, 2, 3, 4, 5].map(j => ({
+      name: j,
+      text: j,
+      value: j,
+      type: "button"
+    }))
+  }
+];
