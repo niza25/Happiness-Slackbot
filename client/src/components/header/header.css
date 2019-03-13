@@ -25,14 +25,11 @@
   height: 100px;
   width: 100px;
   font-size: 1.8em;
-  background-color:#ffe6ff /* #ffccff */;
+  background-color:#ffe6ff;
   border-radius: 35px;
   margin: 0 auto;
   margin-bottom: 0.7em;
   padding-top: 30%;
- /*  -webkit-box-shadow: 10px 10px 17px -9px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 17px -9px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 17px -9px rgba(0,0,0,0.75); */
 }
 
 .smallText{
