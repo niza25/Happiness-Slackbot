@@ -25,7 +25,7 @@
   height: 100px;
   width: 100px;
   font-size: 1.8em;
-  background-color:#ffe6ff;
+  background-color:#C1E5BF;
   border-radius: 35px;
   margin: 0 auto;
   margin-bottom: 0.7em;
@@ -38,4 +38,8 @@
 
 .spaceAround{
   margin: 1em 1em;
+}
+
+.coco{
+  height: 150px;;
 }

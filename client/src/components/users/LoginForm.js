@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import '../../App.css'
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 
 export default class LoginForm extends PureComponent {
@@ -23,25 +24,27 @@ export default class LoginForm extends PureComponent {
 
   render() {
     return (<Container className='loginForm fullPage'>
-      <h1>Login</h1>
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Group controlId="formBasicEmail" >
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" name="email" value={
-            this.state.email || ''
-          } onChange={this.handleChange} required />
-        </Form.Group>
+      <Jumbotron>
+        <h1>Login</h1>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" name="email"
+            value={this.state.email || ''}
+            onChange={this.handleChange} required />
+          </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" name="password" value={
-            this.state.password || ''
-          } onChange={this.handleChange} required />
-        </Form.Group>
-        <Button variant="dark" type="submit">
-          Login
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" name="password" value={
+              this.state.password || ''
+            } onChange={this.handleChange} required />
+          </Form.Group>
+          <Button variant="dark" type="submit">
+            Login
       </Button>
-      </Form>
+        </Form>
+      </Jumbotron>
     </Container>
     )
   }
