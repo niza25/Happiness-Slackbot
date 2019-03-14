@@ -12,7 +12,7 @@ class HeaderContainer extends React.Component {
     return (
       <div className='headerContainer'>
         <div>
-          <h2>The Student Happiness Project</h2>
+          <h3>The Student Happiness Project</h3>
         </div>
           <img className='coco' src='/coco.png'alt='coco'/>
         <ButtonMoodContainer />
