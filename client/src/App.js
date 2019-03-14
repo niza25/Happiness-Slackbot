@@ -1,15 +1,61 @@
 import React, { Component } from 'react';
-import DashboardMain from './components/DashboardMain'
-
+import './App.css';
+import { connect } from 'react-redux'
+import { BrowserRouter, Route } from 'react-router-dom'
+import Login from './components/users/Login'
+import Logout from './components/users/Logaut'
+import Signup from './components/users/SignUp'
+import DashboardMain from './components/dashboard/DashboardMain'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
 
 class App extends Component {
+  
   render() {
     return (
-      <div className="App">
-        <DashboardMain />
-      </div>
+      <BrowserRouter>
+        <div className='app'>
+          <Navbar bg="light" variant='light' expand="lg" className='mainNavbar' /* fixed="top" */ >
+            <Navbar.Brand href="/dashboard">The Student Happiness Project</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+
+              {this.props.currentUser === null &&
+                <Nav className="mr-auto">
+                  <Nav.Link href="/login">Login</Nav.Link>
+                  <Nav.Link href="/signup">Sign Up</Nav.Link>
+                </Nav>
+              }
+
+              {this.props.currentUser !== null &&
+                <Nav className="mr-auto">
+                  <Nav.Link href="#">You are logged in</Nav.Link>
+                  <Nav.Link href="/logout">Logout</Nav.Link>
+                </Nav>
+              }
+
+            </Navbar.Collapse>
+          </Navbar>
+
+          <Route exact path="/" component={Login} />
+          <Route exact path="/dashboard" component={DashboardMain} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/logout" component={Logout} />
+          <Route exact path="/signup" component={Signup} />
+        
+          <footer className="footer">
+          Made with &#10084; by Emine, Denise, Izabela and Robert for Codaisseur, 2019 &copy;
+          </footer>
+        </div>
+
+      </BrowserRouter>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  currentUser: state.currentUser
+})
+
+export default connect(mapStateToProps)(App)
+

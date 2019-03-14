@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const authRouter = require("./src/auth/routes");
 const userRouter = require("./src/users/routes");
+const cors = require("cors");
 
 const classRouter = require("./src/classes/routes");
 const questionRouter = require("./src/questions/routes");
@@ -12,10 +13,12 @@ const app = express();
 const port = process.env.PORT_DB || 4000;
 
 app
+  .use(cors())
   .use(bodyParser.json())
   .use(authRouter)
   .use(userRouter)
-  .use(bodyParser.json())
+  .use(classRouter)
+  .use(bodyParser.json({ limit: "1mb", extended: true }))
   .listen(port, () => console.log(`Listening on port ${port}`));
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,6 +81,7 @@ if (!process.env.clientId || !process.env.clientSecret || !process.env.PORT) {
 var Botkit = require("botkit");
 var debug = require("debug")("botkit:main");
 
+// Displaying cliendId is okay, but do not display secrets and tokens.
 var bot_options = {
   clientId: process.env.clientId || "567388031410.571248244294",
   clientSecret: process.env.clientSecret || "f005018731987440abd1624afc805160",
